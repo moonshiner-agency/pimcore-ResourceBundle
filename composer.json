@@ -1,0 +1,30 @@
+{
+    "name" : "Moonshiner/ResourceBundle",
+    "description" : "Extended bundle for pimcore",
+    "type" : "symfony-bundle",
+    "authors" : [{
+        "name" : "Victor Casanas",
+        "email" : "victor.casanas@moonshiner.at"
+    }],
+    "keywords" : [
+        "pimcore bundle"
+    ],
+    "license" : [
+        "MIT"
+    ],
+    "require" : {
+    },
+    "autoload" : {
+        "psr-0" : {
+            "Moonshiner\\ResourceBundle" : ""
+        }
+    },
+    "target-dir" : "Moonshiner/ResourceBundle",
+    "repositories" : [{
+    }],
+    "extra" : {
+    "branch-alias" : {
+            "dev-master" : "1.0"
+        }
+    }
+}
