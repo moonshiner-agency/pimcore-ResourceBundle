@@ -1,0 +1,3 @@
+services:
+    moonshiner.webresource:
+        class: Moonshiner\ResourceBundle\Services\ResourceInterface
