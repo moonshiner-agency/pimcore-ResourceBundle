@@ -51,6 +51,9 @@ class Factory implements ArrayAccess
      */
     protected $afterCreating = [];
 
+
+    protected $activeStates = [];
+
     /**
      * The Faker instance for the builder.
      *
@@ -118,6 +121,13 @@ class Factory implements ArrayAccess
     public function defineMap($class, array $maps, $name = 'default')
     {
         $this->definitionMaps[$class][$name] = $maps;
+
+        return $this;
+    }
+
+    public function states($states)
+    {
+        $this->activeStates = is_array($states) ? $states : func_get_args();
 
         return $this;
     }
