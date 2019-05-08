@@ -10,7 +10,7 @@ trait InteractsWithFactory
 
     public function setupFactories()
     {
-        static::bootKernel();
+        // static::bootKernel();
         $this->factory = \Moonshiner\ResourceBundle\Services\Factory::getInstance();
     }
 
