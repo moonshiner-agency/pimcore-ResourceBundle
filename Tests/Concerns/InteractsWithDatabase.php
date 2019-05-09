@@ -48,7 +48,7 @@ trait InteractsWithDatabase
 
         $installer->setupDatabase([
             'username' => 'admin',
-            'password' => microtime(),
+            'password' => 'secret',
         ]);
 
         static::$classesBuilded = false;
