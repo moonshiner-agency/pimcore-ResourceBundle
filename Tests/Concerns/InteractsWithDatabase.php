@@ -9,7 +9,7 @@ trait InteractsWithDatabase
     public static $pimcoreSetupDone = false;
     public static $classesBuilded = false;
 
-    public static function setupPimcore()
+    public static function setupPimcore( $db = 'test')
     {
         if (static::$pimcoreSetupDone) {
             return;
@@ -32,10 +32,10 @@ trait InteractsWithDatabase
 
             // you can use this to get the name of the database $connection->quoteIdentifier($dbName)
             // But i preffer to hardcore the name of the database here in order to avoid purging the dev or prod database
-            $schemaManager->dropDatabase('test');
+            $schemaManager->dropDatabase($db);
         }
 
-        $schemaManager->createDatabase('test');
+        $schemaManager->createDatabase($db);
 
         if (!$connection->isConnected()) {
             $connection->connect();
