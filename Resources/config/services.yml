@@ -2,3 +2,4 @@ services:
     moonshiner.webresource:
         class: Moonshiner\BrigthenBundle\Services\ResourceInterface
     Moonshiner\BrigthenBundle\Security\User\UserProvider: ~
+    Moonshiner\BrigthenBundle\Service\Factory:
