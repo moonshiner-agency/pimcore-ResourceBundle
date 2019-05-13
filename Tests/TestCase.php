@@ -15,7 +15,6 @@ abstract class TestCase extends WebTestCase
     use InteractsWithConsole;
     use InteractsWithDatabase;
     use InteractsWithFactory;
-    use InteractsWithKernel;
 
      /**
      * Setup the test environment.
@@ -25,7 +24,7 @@ abstract class TestCase extends WebTestCase
     protected function setUp()
     {
         \Pimcore::setKernel(self::createKernel());
-        $this->kernel = InteractsWithKernel::bootKernel();
+        $this->kernel = static::bootKernel();
         InteractsWithDatabase::setupPimcore();
         $this->setupFactories();
     }
