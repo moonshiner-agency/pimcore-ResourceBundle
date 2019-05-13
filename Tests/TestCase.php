@@ -25,7 +25,7 @@ abstract class TestCase extends WebTestCase
     protected function setUp()
     {
         \Pimcore::setKernel(self::createKernel());
-        $this->bootKernel();
+        $this->kernel = InteractsWithKernel::bootKernel();
         InteractsWithDatabase::setupPimcore();
         $this->setupFactories();
     }
