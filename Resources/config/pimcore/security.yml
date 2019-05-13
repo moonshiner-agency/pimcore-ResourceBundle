@@ -15,9 +15,13 @@ security:
                 user_checker: security.user_checker
                 success_handler: lexik_jwt_authentication.handler.authentication_success
                 failure_handler: lexik_jwt_authentication.handler.authentication_failure
-        me:
+        api:
             pattern: ^/api
             stateless: true
             guard:
                 authenticators:
                     - lexik_jwt_authentication.jwt_token_authenticator
+        pages:
+            pattern: ^/api/pages
+            stateless: true
+            anonymous: true
