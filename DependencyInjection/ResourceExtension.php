@@ -1,6 +1,6 @@
 <?php
 
-namespace Moonshiner\ResourceBundle\DependencyInjection;
+namespace Moonshiner\BrigthenBundle\DependencyInjection;
 
 use Symfony\Component\Config\FileLocator;
 use Symfony\Component\DependencyInjection\ContainerBuilder;

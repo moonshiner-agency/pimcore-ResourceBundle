@@ -1,3 +1,3 @@
 services:
     moonshiner.webresource:
-        class: Moonshiner\ResourceBundle\Services\ResourceInterface
+        class: Moonshiner\BrigthenBundle\Services\ResourceInterface

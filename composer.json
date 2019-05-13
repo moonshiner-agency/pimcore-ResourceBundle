@@ -1,5 +1,5 @@
 {
-    "name" : "Moonshiner/ResourceBundle",
+    "name" : "moonshiner/brigthenbundle",
     "description" : "Extended bundle for pimcore",
     "type" : "symfony-bundle",
     "authors" : [{
@@ -16,10 +16,10 @@
     },
     "autoload" : {
         "psr-0" : {
-            "Moonshiner\\ResourceBundle" : ""
+            "Moonshiner\\BrigthenBundle" : ""
         }
     },
-    "target-dir" : "Moonshiner/ResourceBundle",
+    "target-dir" : "Moonshiner/BrigthenBundle",
     "repositories" : [{
     }],
     "extra" : {

@@ -9,7 +9,7 @@ require './vendor/autoload.php';
 \Pimcore\Bootstrap::boostrap();
 
 // load factories
-$factory = \Moonshiner\ResourceBundle\Services\Factory::getInstance();
+$factory = \Moonshiner\BrigthenBundle\Services\Factory::getInstance();
 $path = './var/factories';
 
 if (is_dir($path)) {

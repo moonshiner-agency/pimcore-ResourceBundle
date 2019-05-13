@@ -1,6 +1,6 @@
 <?php
 
-namespace Moonshiner\ResourceBundle\Tests\Concerns;
+namespace Moonshiner\BrigthenBundle\Concerns;
 
 use Symfony\Bundle\FrameworkBundle\Console\Application;
 use Symfony\Component\Console\Input\ArrayInput;
@@ -10,7 +10,10 @@ trait InteractsWithConsole
 {
     public function console($command, $parameters = [])
     {
-        $kernel = $kernel = static::bootKernel();
+        if(! $kernel = $this->kernel )
+        {
+            $kernel = static::bootKernel();
+        }
         $application = new Application($kernel);
         $application->setAutoExit(false);
 
@@ -22,6 +25,5 @@ trait InteractsWithConsole
 
         $output = new  ConsoleOutput();
         $application->run($input, $output);
-
     }
 }

@@ -1,6 +1,6 @@
 <?php
 
-namespace Moonshiner\ResourceBundle\Tests;
+namespace Moonshiner\BrigthenBundle\Tests;
 
 use PHPUnit\Framework\Assert as PHPUnit;
 use Tightenco\Collect\Support\Arr;

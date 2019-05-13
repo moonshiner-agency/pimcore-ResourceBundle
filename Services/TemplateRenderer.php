@@ -1,6 +1,6 @@
 <?php
 
-namespace Moonshiner\ResourceBundle\Services;
+namespace Moonshiner\BrigthenBundle\Services;
 
 use Pimcore\Templating\PhpEngine;
 

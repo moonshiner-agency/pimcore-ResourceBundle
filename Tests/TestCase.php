@@ -1,12 +1,12 @@
 <?php
 
-namespace Moonshiner\ResourceBundle\Tests;
+namespace Moonshiner\BrigthenBundle\Tests;
 
 use Pimcore\Test\WebTestCase;
-use Moonshiner\ResourceBundle\Tests\Concerns\MakesHttpRequests;
-use Moonshiner\ResourceBundle\Tests\Concerns\InteractsWithDatabase;
-use Moonshiner\ResourceBundle\Tests\Concerns\InteractsWithConsole;
-use Moonshiner\ResourceBundle\Tests\Concerns\InteractsWithFactory;
+use Moonshiner\BrigthenBundle\Concerns\MakesHttpRequests;
+use Moonshiner\BrigthenBundle\Concerns\InteractsWithDatabase;
+use Moonshiner\BrigthenBundle\Concerns\InteractsWithConsole;
+use Moonshiner\BrigthenBundle\Concerns\InteractsWithFactory;
 
 abstract class TestCase extends WebTestCase
 {

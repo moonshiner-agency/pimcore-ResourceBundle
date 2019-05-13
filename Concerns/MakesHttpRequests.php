@@ -1,10 +1,10 @@
 <?php
 
-namespace Moonshiner\ResourceBundle\Tests\Concerns;
+namespace Moonshiner\BrigthenBundle\Concerns;
 
 use Symfony\Component\HttpFoundation\Request as SymfonyRequest;
 use Symfony\Component\HttpFoundation\File\UploadedFile as SymfonyUploadedFile;
-use Moonshiner\ResourceBundle\Tests\TestResponse;
+use Moonshiner\BrigthenBundle\Tests\TestResponse;
 
 trait MakesHttpRequests
 {
@@ -366,16 +366,14 @@ trait MakesHttpRequests
     protected function prepareUrlForRequest($uri)
     {
 
-        // TODO THIS NEEDS TO BE FIXED
-
-        // if (Str::startsWith($uri, '/')) {
+        if ( $this->startsWith($uri, '/')) {
         $uri = substr($uri, 1);
-        // }
+        }
 
-        // if (! Str::startsWith($uri, 'http')) {
-        // $uri = config('app.url').'/'.$uri;
-        $uri = 'http://localhost:2009'.'/'.$uri;
-        // }
+        if (! $this->startsWith($uri, 'http')) {
+            $uri = config('app.url').'/'.$uri;
+            $uri = 'http://localhost:2009'.'/'.$uri;
+        }
 
         return trim($uri, '/');
     }
@@ -403,7 +401,7 @@ trait MakesHttpRequests
      */
     protected function formatServerHeaderKey($name)
     {
-        if (! Str::startsWith($name, 'HTTP_') && $name !== 'CONTENT_TYPE' && $name !== 'REMOTE_ADDR') {
+        if (! $this->startsWith($name, 'HTTP_') && $name !== 'CONTENT_TYPE' && $name !== 'REMOTE_ADDR') {
             return 'HTTP_'.$name;
         }
 
@@ -463,5 +461,16 @@ trait MakesHttpRequests
     protected function createTestResponse($response)
     {
         return TestResponse::fromBaseResponse($response);
+    }
+
+    protected static function startsWith($haystack, $needles)
+    {
+        foreach ((array) $needles as $needle) {
+            if ($needle !== '' && substr($haystack, 0, strlen($needle)) === (string) $needle) {
+                return true;
+            }
+        }
+
+        return false;
     }
 }

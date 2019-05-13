@@ -1,10 +1,9 @@
 <?php
 
 // src/Service/MessageGenerator.php
-namespace Moonshiner\ResourceBundle\Services;
+namespace Moonshiner\BrigthenBundle\Services;
 
 use ArrayAccess;
-use Faker\Generator as Faker;
 use Symfony\Component\Finder\Finder;
 
 class Factory implements ArrayAccess

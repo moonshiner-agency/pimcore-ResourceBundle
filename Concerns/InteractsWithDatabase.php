@@ -1,6 +1,6 @@
 <?php
 
-namespace Moonshiner\ResourceBundle\Tests\Concerns;
+namespace Moonshiner\BrigthenBundle\Concerns;
 
 use Doctrine\DBAL\DriverManager;
 
