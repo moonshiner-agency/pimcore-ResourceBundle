@@ -3,3 +3,4 @@ services:
         class: Moonshiner\BrigthenBundle\Services\ResourceInterface
     Moonshiner\BrigthenBundle\Security\User\UserProvider: ~
     Moonshiner\BrigthenBundle\Service\Factory:
+        true
