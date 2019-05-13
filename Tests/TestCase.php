@@ -7,6 +7,7 @@ use Moonshiner\BrigthenBundle\Concerns\MakesHttpRequests;
 use Moonshiner\BrigthenBundle\Concerns\InteractsWithDatabase;
 use Moonshiner\BrigthenBundle\Concerns\InteractsWithConsole;
 use Moonshiner\BrigthenBundle\Concerns\InteractsWithFactory;
+use Moonshiner\BrigthenBundle\Concerns\InteractsWithKernel;
 
 abstract class TestCase extends WebTestCase
 {
@@ -14,6 +15,7 @@ abstract class TestCase extends WebTestCase
     use InteractsWithConsole;
     use InteractsWithDatabase;
     use InteractsWithFactory;
+    use InteractsWithKernel;
 
      /**
      * Setup the test environment.
@@ -23,7 +25,7 @@ abstract class TestCase extends WebTestCase
     protected function setUp()
     {
         \Pimcore::setKernel(self::createKernel());
-        \Pimcore::getKernel()->boot();
+        $this->bootKernel();
         InteractsWithDatabase::setupPimcore();
         $this->setupFactories();
     }

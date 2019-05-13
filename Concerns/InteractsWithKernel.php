@@ -6,9 +6,9 @@ trait InteractsWithKernel
 {
     protected $kernel;
 
-    public function setupFactories()
+    public function bootKernel()
     {
-        $kernel = static::bootKernel();
+        $this->kernel = static::bootKernel();
     }
 
 }
