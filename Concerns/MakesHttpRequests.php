@@ -366,15 +366,15 @@ trait MakesHttpRequests
     protected function prepareUrlForRequest($uri)
     {
 
-        if ( $this->startsWith($uri, '/')) {
+        // if ( $this->startsWith($uri, '/')) {
+        //     $uri = substr($uri, 1);
+        // }
+
+        // if (! $this->startsWith($uri, 'http')) {
+        //     $uri = config('app.url').'/'.$uri;
+        //     $uri = 'http://localhost:2009'.'/'.$uri;
+        // }
         $uri = substr($uri, 1);
-        }
-
-        if (! $this->startsWith($uri, 'http')) {
-            $uri = config('app.url').'/'.$uri;
-            $uri = 'http://localhost:2009'.'/'.$uri;
-        }
-
         return trim($uri, '/');
     }
 
