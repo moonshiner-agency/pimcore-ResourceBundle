@@ -4,7 +4,7 @@ namespace Moonshiner\BrigthenBundle\Concerns;
 
 trait InteractsWithKernel
 {
-    public function bootKernel()
+    public static function bootKernel()
     {
         return static::bootKernel();
     }
