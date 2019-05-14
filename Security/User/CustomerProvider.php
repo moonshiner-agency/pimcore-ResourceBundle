@@ -8,7 +8,7 @@ use Symfony\Component\Security\Core\User\UserProviderInterface;
 use Pimcore\Model\User;
 
 
-class UserProvider implements UserProviderInterface
+class CustomerProvider implements UserProviderInterface
 {
     /**
      * @var CustomerProviderInterface
