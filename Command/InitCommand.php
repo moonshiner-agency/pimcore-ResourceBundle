@@ -3,15 +3,13 @@
 namespace  Moonshiner\BrigthenBundle\Command;
 
 use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
-use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 use Moonshiner\BrigthenBundle\Concerns\InteractsWithFactory;
 use Moonshiner\BrigthenBundle\Concerns\InteractsWithDatabase;
-use Pimcore\Model\DataObject\AbstractObject;
+use Symfony\Component\Console\Input\ArrayInput;
 use Pimcore\Model\Document\Page;
-use Pimcore\Model\User;
 
 class InitCommand extends ContainerAwareCommand
 {
