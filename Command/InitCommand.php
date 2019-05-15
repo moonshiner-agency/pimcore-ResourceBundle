@@ -87,7 +87,8 @@ class InitCommand extends ContainerAwareCommand
         $customerDefinitionPath = "../var/classes/customer.json";
         $command = $this->getApplication()->find('pimcore:definition:import:class');
         $arguments = [
-            'command' => 'pimcore:definition:import:class '.$customerDefinitionPath,
+            'command' => 'pimcore:definition:import:class ',
+            'path' =>  $customerDefinitionPath
         ];
 
         $command->run(new ArrayInput($arguments), $output);
