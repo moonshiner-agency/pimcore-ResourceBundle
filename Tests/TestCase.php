@@ -13,7 +13,7 @@ abstract class TestCase extends WebTestCase
 {
     use MakesHttpRequests;
     use InteractsWithConsole;
-    use pInteractsWithDatabase;
+    use InteractsWithDatabase;
     use InteractsWithFactory;
 
      /**
