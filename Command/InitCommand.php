@@ -84,7 +84,7 @@ class InitCommand extends ContainerAwareCommand
 
     protected function seedCustomer(OutputInterface $output)
     {
-        $customerDefinitionPath = "vendor/moonshiner/brigthenbundle/Moonshiner/BrigthenBundle/var/classes/class_customer_export.json";
+        $customerDefinitionPath = "vendor/moonshiner/brigthenbundle/Moonshiner/BrigthenBundle/var/classes/class_Customer_export.json";
         $command = $this->getApplication()->find('pimcore:definition:import:class');
         $arguments = [
             'command' => 'pimcore:definition:import:class ',
