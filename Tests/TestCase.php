@@ -13,7 +13,7 @@ abstract class TestCase extends WebTestCase
 {
     use MakesHttpRequests;
     use InteractsWithConsole;
-    use InteractsWithDatabase;
+    use pInteractsWithDatabase;
     use InteractsWithFactory;
 
      /**
@@ -26,6 +26,7 @@ abstract class TestCase extends WebTestCase
         \Pimcore::setKernel(self::createKernel());
         $this->kernel = static::bootKernel();
         InteractsWithDatabase::setupPimcore();
+        $this->classesRebuild();
         $this->setupFactories();
     }
 }

@@ -79,6 +79,7 @@ trait InteractsWithDatabase
     {
         if ( ! static::$classesBuilded) {
             $this->console('pimcore:deployment:classes-rebuild');
+            $this->console('pimcore:deployment:classes-rebuild', ['--create-classes' =>true ]);
            static::$classesBuilded = true;
         }
         return $this;

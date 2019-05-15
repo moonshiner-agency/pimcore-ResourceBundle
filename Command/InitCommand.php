@@ -1,6 +1,6 @@
 <?php
 
-namespace AppBundle\Command;
+namespace  Moonshiner\BrigthenBundle\Command;
 
 use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
 use Symfony\Component\Console\Input\InputArgument;
