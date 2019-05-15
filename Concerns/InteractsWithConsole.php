@@ -17,11 +17,10 @@ trait InteractsWithConsole
         $application = new Application($kernel);
         $application->setAutoExit(false);
 
-        $input = new ArrayInput([
+        $input = new ArrayInput( array_merge( $parameters,[
             'command' => $command,
-            $parameters,
             '-q' => true,
-         ]);
+        ]) );
 
         $output = new  ConsoleOutput();
         $application->run($input, $output);
