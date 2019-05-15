@@ -40,8 +40,7 @@ class InitCommand extends ContainerAwareCommand
 
         $this->refresh( $input );
         $this->seedPageFolders();
-
-        $command = $this->getApplication()->find('pimcore:definition:import:class');
+        $this->seedCustomer($output);
 
         $output->writeln('Done buddy!');
     }
@@ -83,6 +82,17 @@ class InitCommand extends ContainerAwareCommand
             ]);
 
         } catch (\Throwable $th) {  }
+    }
+
+    protected function seedCustomer(OutputInterface $output)
+    {
+        $customerDefinitionPath = "../var/classes/customer.json";
+        $command = $this->getApplication()->find('pimcore:definition:import:class');
+        $arguments = [
+            'command' => 'pimcore:definition:import:class '.$customerDefinitionPath,
+        ];
+
+        $command->run(new ArrayInput($arguments), $output);
     }
 
 
