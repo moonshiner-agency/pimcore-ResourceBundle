@@ -79,8 +79,9 @@ trait InteractsWithDatabase
      */
     public function classesRebuild()
     {
-        $this->console('pimcore:deployment:classes-rebuild', ['--create-classes' =>true ]);
+        $this->console('pimcore:deployment:classes-rebuild', ['-c' =>true ]);
         $this->console('pimcore:deployment:classes-rebuild');
+
         return $this;
     }
 
