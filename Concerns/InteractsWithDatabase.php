@@ -79,122 +79,121 @@ trait InteractsWithDatabase
      */
     public function classesRebuild()
     {
-        if ( ! static::$classesBuilded) {
-            $this->console('pimcore:deployment:classes-rebuild');
-            $this->console('pimcore:deployment:classes-rebuild', ['--create-classes' =>true ]);
-           static::$classesBuilded = true;
-        }
+        $this->console('pimcore:deployment:classes-rebuild', ['--create-classes' =>true ]);
+        $this->console('pimcore:deployment:classes-rebuild');
         return $this;
     }
 
     public static function insertDatabaseContents()
     {
-        $db = \Pimcore\Db::get();
-        $db->insert('assets', [
-            'id' => 1,
-            'parentId' => 0,
-            'type' => 'folder',
-            'filename' => '',
-            'path' => '/',
-            'creationDate' => time(),
-            'modificationDate' => time(),
-            'userOwner' => 1,
-            'userModification' => 1
-        ]);
-        $db->insert('documents', [
-            'id' => 1,
-            'parentId' => 0,
-            'type' => 'page',
-            'key' => '',
-            'path' => '/',
-            'index' => 999999,
-            'published' => 1,
-            'creationDate' => time(),
-            'modificationDate' => time(),
-            'userOwner' => 1,
-            'userModification' => 1
-        ]);
-        $db->insert('documents_page', [
-            'id' => 1,
-            'controller' => 'default',
-            'action' => 'default',
-            'template' => '',
-            'title' => '',
-            'description' => ''
-        ]);
-        $db->insert('objects', [
-            'o_id' => 1,
-            'o_parentId' => 0,
-            'o_type' => 'folder',
-            'o_key' => '',
-            'o_path' => '/',
-            'o_index' => 999999,
-            'o_published' => 1,
-            'o_creationDate' => time(),
-            'o_modificationDate' => time(),
-            'o_userOwner' => 1,
-            'o_userModification' => 1
-        ]);
+        try {
+            $db = \Pimcore\Db::get();
+            $db->insert('assets', [
+                'id' => 1,
+                'parentId' => 0,
+                'type' => 'folder',
+                'filename' => '',
+                'path' => '/',
+                'creationDate' => time(),
+                'modificationDate' => time(),
+                'userOwner' => 1,
+                'userModification' => 1
+            ]);
+            $db->insert('documents', [
+                'id' => 1,
+                'parentId' => 0,
+                'type' => 'page',
+                'key' => '',
+                'path' => '/',
+                'index' => 999999,
+                'published' => 1,
+                'creationDate' => time(),
+                'modificationDate' => time(),
+                'userOwner' => 1,
+                'userModification' => 1
+            ]);
+            $db->insert('documents_page', [
+                'id' => 1,
+                'controller' => 'default',
+                'action' => 'default',
+                'template' => '',
+                'title' => '',
+                'description' => ''
+            ]);
+            $db->insert('objects', [
+                'o_id' => 1,
+                'o_parentId' => 0,
+                'o_type' => 'folder',
+                'o_key' => '',
+                'o_path' => '/',
+                'o_index' => 999999,
+                'o_published' => 1,
+                'o_creationDate' => time(),
+                'o_modificationDate' => time(),
+                'o_userOwner' => 1,
+                'o_userModification' => 1
+            ]);
 
-        $db->insert('users', [
-            'parentId' => 0,
-            'name' => 'system',
-            'admin' => 1,
-            'active' => 1
-        ]);
-        $db->update('users', ['id' => 0], ['name' => 'system']);
+            $db->insert('users', [
+                'parentId' => 0,
+                'name' => 'system',
+                'admin' => 1,
+                'active' => 1
+            ]);
+            $db->update('users', ['id' => 0], ['name' => 'system']);
 
-        $userPermissions = [
-            ['key' => 'application_logging'],
-            ['key' => 'assets'],
-            ['key' => 'classes'],
-            ['key' => 'clear_cache'],
-            ['key' => 'clear_fullpage_cache'],
-            ['key' => 'clear_temp_files'],
-            ['key' => 'dashboards'],
-            ['key' => 'document_types'],
-            ['key' => 'documents'],
-            ['key' => 'emails'],
-            ['key' => 'gdpr_data_extractor'],
-            ['key' => 'glossary'],
-            ['key' => 'http_errors'],
-            ['key' => 'notes_events'],
-            ['key' => 'objects'],
-            ['key' => 'piwik_settings'],
-            ['key' => 'piwik_reports'],
-            ['key' => 'plugins'],
-            ['key' => 'predefined_properties'],
-            ['key' => 'asset_metadata'],
-            ['key' => 'qr_codes'],
-            ['key' => 'recyclebin'],
-            ['key' => 'redirects'],
-            ['key' => 'reports'],
-            ['key' => 'reports_config'],
-            ['key' => 'robots.txt'],
-            ['key' => 'routes'],
-            ['key' => 'seemode'],
-            ['key' => 'seo_document_editor'],
-            ['key' => 'share_configurations'],
-            ['key' => 'system_settings'],
-            ['key' => 'tag_snippet_management'],
-            ['key' => 'tags_configuration'],
-            ['key' => 'tags_assignment'],
-            ['key' => 'tags_search'],
-            ['key' => 'targeting'],
-            ['key' => 'thumbnails'],
-            ['key' => 'translations'],
-            ['key' => 'users'],
-            ['key' => 'website_settings'],
-            ['key' => 'admin_translations'],
-            ['key' => 'web2print_settings'],
-            ['key' => 'workflow_details'],
-            ['key' => 'notifications'],
-            ['key' => 'notifications_send']
-        ];
+            $userPermissions = [
+                ['key' => 'application_logging'],
+                ['key' => 'assets'],
+                ['key' => 'classes'],
+                ['key' => 'clear_cache'],
+                ['key' => 'clear_fullpage_cache'],
+                ['key' => 'clear_temp_files'],
+                ['key' => 'dashboards'],
+                ['key' => 'document_types'],
+                ['key' => 'documents'],
+                ['key' => 'emails'],
+                ['key' => 'gdpr_data_extractor'],
+                ['key' => 'glossary'],
+                ['key' => 'http_errors'],
+                ['key' => 'notes_events'],
+                ['key' => 'objects'],
+                ['key' => 'piwik_settings'],
+                ['key' => 'piwik_reports'],
+                ['key' => 'plugins'],
+                ['key' => 'predefined_properties'],
+                ['key' => 'asset_metadata'],
+                ['key' => 'qr_codes'],
+                ['key' => 'recyclebin'],
+                ['key' => 'redirects'],
+                ['key' => 'reports'],
+                ['key' => 'reports_config'],
+                ['key' => 'robots.txt'],
+                ['key' => 'routes'],
+                ['key' => 'seemode'],
+                ['key' => 'seo_document_editor'],
+                ['key' => 'share_configurations'],
+                ['key' => 'system_settings'],
+                ['key' => 'tag_snippet_management'],
+                ['key' => 'tags_configuration'],
+                ['key' => 'tags_assignment'],
+                ['key' => 'tags_search'],
+                ['key' => 'targeting'],
+                ['key' => 'thumbnails'],
+                ['key' => 'translations'],
+                ['key' => 'users'],
+                ['key' => 'website_settings'],
+                ['key' => 'admin_translations'],
+                ['key' => 'web2print_settings'],
+                ['key' => 'workflow_details'],
+                ['key' => 'notifications'],
+                ['key' => 'notifications_send']
+            ];
 
-        foreach ($userPermissions as $up) {
-            $db->insert('users_permission_definitions', $up);
-        }
+            foreach ($userPermissions as $up) {
+                $db->insert('users_permission_definitions', $up);
+            }
+        } catch (\Throwable $th) {  }
     }
 
 
