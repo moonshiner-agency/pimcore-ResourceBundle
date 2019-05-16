@@ -51,7 +51,7 @@ trait InteractsWithDatabase
             'password' => 'secret',
         ]);
 
-        $this->insertDatabaseContents();
+        self::insertDatabaseContents();
 
         static::$classesBuilded = false;
         static::$pimcoreSetupDone = true;
