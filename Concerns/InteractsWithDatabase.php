@@ -87,7 +87,7 @@ trait InteractsWithDatabase
         return $this;
     }
 
-    protected function insertDatabaseContents()
+    public static function insertDatabaseContents()
     {
         $db = \Pimcore\Db::get();
         $db->insert('assets', [
