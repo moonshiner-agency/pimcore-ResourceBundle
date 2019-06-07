@@ -47,4 +47,9 @@ class HigherOrderModelProxy
         return $this->results->{$method}(...$parameters);
     }
 
+    public function getModel()
+    {
+        return $this->results;
+    }
+
 }

@@ -158,11 +158,11 @@ trait MakesHttpRequests
      * @param  array  $headers
      * @return \Tests\TestResponse
      */
-    public function get($uri, array $headers = [])
+    public function get($uri, array $data = [], array $headers = [])
     {
         $server = $this->transformHeadersToServerVars($headers);
 
-        return $this->call('GET', $uri, [], [], [], $server);
+        return $this->call('GET',  $uri, $data, [], [], $server);
     }
 
     /**

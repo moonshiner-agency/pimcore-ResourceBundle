@@ -4,6 +4,7 @@ namespace Moonshiner\BrigthenBundle\Services;
 
 class Resource implements ResourceInterface
 {
+    const NESTED = true;
     protected $resource;
 
     /**
@@ -18,13 +19,17 @@ class Resource implements ResourceInterface
         $this->resource = $resource;
     }
 
-    public static function collection($collection)
+    public static function collection($collection, $nested = false)
     {
         $className = get_called_class();
-
-        return self::toResponse(array_map(function ($item) use ($className) {
+        $transformed = array_map(function ($item) use ($className) {
             return (new $className($item))->toArray();
-        }, $collection));
+        }, $collection);
+
+        if($nested) {
+            return $transformed;
+        }
+        return self::toResponse(  $transformed);
     }
 
     public function toArray()
