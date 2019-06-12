@@ -1,7 +1,7 @@
 <?php
 
 define('PIMCORE_TEST', true);
-define('PIMCORE_CLASS_DIRECTORY', getenv('PIMCORE_CLASS_DIRECTORY'));
+define('PIMCORE_CLASS_DIRECTORY', './var/classes');
 
 require './vendor/autoload.php';
 
