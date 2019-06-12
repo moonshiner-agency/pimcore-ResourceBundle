@@ -9,7 +9,7 @@ trait InteractsWithDatabase
     public static $pimcoreSetupDone = false;
     public static $classesBuilded = false;
 
-    public static function setupPimcore( $db )
+    public static function setupPimcore( $db = null )
     {
         if (static::$pimcoreSetupDone) {
             return;
