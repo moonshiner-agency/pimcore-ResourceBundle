@@ -26,7 +26,7 @@ abstract class TestCase extends WebTestCase
         \Pimcore::setKernel(self::createKernel());
         $this->kernel = static::bootKernel();
         InteractsWithDatabase::refresh();
-        InteractsWithDatabase::setupPimcore();
+        InteractsWithDatabase::setupPimcore( $db = 'test' );
         $this->classesRebuild();
         $this->setupFactories();
     }
