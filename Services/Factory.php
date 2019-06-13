@@ -276,7 +276,7 @@ class Factory implements ArrayAccess
      *
      * @param  string  $class
      * @param  string  $name
-     * @return AppBundle\Service\FactoryBuilder
+     * @return Moonshiner\BrigthenBundle\Service\FactoryBuilder
      */
     public function of($class, $name = 'default')
     {

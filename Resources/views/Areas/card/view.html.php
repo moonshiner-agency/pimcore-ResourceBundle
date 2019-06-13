@@ -34,19 +34,16 @@
                     <?= $this->link('link', ['class' => 'btn btn-primary btn-lg']) ?>
                 </div>
             </div>
-    </div>
+        </div>
     </section>
-    <?php
+<?php
 } else {
-        $image = $this->image('image');
-        $data = [];
-
-        $this->slots()->components[] = [
-            'type' => 'card',
-            'title' => $this->input('title')->getData(),
-            'text' => $this->textarea('text')->getData(),
-            'image' => $image->getThumbnail('galleryLightbox') !== '' ? \Pimcore\Tool::getHostUrl() . $image->getThumbnail('galleryLightbox')->getPath() : null,
-            'link' => $this->link('link', ['class' => 'btn btn-default'])->getData()
-        ];
-    } ?>
-
+    $image = $this->image('image');
+    $this->slots()->components[] = [
+        'type' => 'card',
+        'title' => $this->input('title')->getData(),
+        'text' => $this->textarea('text')->getData(),
+        'image' => $image->getThumbnail('galleryLightbox') !== '' ? \Pimcore\Tool::getHostUrl() . $image->getThumbnail('galleryLightbox')->getPath() : null,
+        'link' => $this->link('link', ['class' => 'btn btn-default'])->getData()
+    ];
+} ?>

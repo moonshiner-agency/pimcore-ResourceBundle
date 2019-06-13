@@ -17,19 +17,22 @@
  * @var \Pimcore\Templating\PhpEngine $view
  * @var \Pimcore\Templating\GlobalVariables $app
  */
-$this->extend('layout.html.php');
 ?>
 
-<?= $this->areablock('content', [
-    'allowed' => [
-        'gallery-carousel',
-        'gallery-single-images',
-        'horizontal-
-        line',
-        'icon-teaser-row',
-        'image',
-        'productgrid',
-        'productteaser',
-        'wysiwyg'
-    ]
-]) ?>
+
+<?php if ($this->editmode) {
+    ?>
+    <section>
+        <div class="cms-component-type">Contactcard</div>
+        <div class="row">
+            <div class="col-md-3 mb-20">
+                <h2>Contactcard</h2>
+            </div>
+        </div>
+    </section>
+<?php
+} else {
+    $this->slots()->components[] = [
+        'type' => 'contact-card'
+    ];
+} ?>

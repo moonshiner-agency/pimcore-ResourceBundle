@@ -95,14 +95,14 @@ class FactoryBuilder
     /**
      * Create an new builder instance.
      *
-     * @param  AppBundle\Service\Factory  $factory
+     * @param  Moonshiner\BrigthenBundle\Service\Factory  $factory
      * @param  string  $class
      * @param  string  $name
      * @param  array  $definitions
      * @param  array  $states
      * @param  array  $afterMaking
      * @param  array  $afterCreating
-    * @param  array  $areaBLocks
+     * @param  array  $areaBLocks
      * @return void
      */
     public function __construct(
@@ -239,7 +239,7 @@ class FactoryBuilder
         return $instances;
     }
 
-     /**
+    /**
      * Define a area block with a given set of attributes.
      *
      * @param  string  $class
@@ -250,19 +250,19 @@ class FactoryBuilder
     public function withAreaBlock($class, $name, $attributes)
     {
         $reflect = new \ReflectionClass($class);
-        $blockType = strtolower( $reflect->getShortName() );
+        $blockType = strtolower($reflect->getShortName());
         $blockData[] = [
-            'type'=> $blockType,
-            'key'=>  $this->areaBlockIndex
+            'type' => $blockType,
+            'key' =>  $this->areaBlockIndex
         ];
 
-        if( isset($this->areaBlock)) {
+        if (isset($this->areaBlock)) {
             $indices  = $this->areaBlock->getData();
             $blockData = array_merge($blockData, $indices);
             $this->areaBlock->delete();
         }
 
-        $this->areaBlock = $this->factory->create(areaBlock::class,[
+        $this->areaBlock = $this->factory->create(areaBlock::class, [
             'documentId' => $this->results->getId(),
             'dataFromEditmode' => $blockData
         ]);
@@ -305,7 +305,7 @@ class FactoryBuilder
      */
     protected function getRawAttributes(array $attributes = [])
     {
-        if (! isset($this->definitions[$this->class][$this->name])) {
+        if (!isset($this->definitions[$this->class][$this->name])) {
             throw new InvalidArgumentException("Unable to locate factory with name [{$this->name}] [{$this->class}].");
         }
 
@@ -329,7 +329,7 @@ class FactoryBuilder
     protected function makeInstance(array $attributes = [])
     {
         $instance = new $this->class();
-        if ( isset($this->definitionMaps[$this->class])) {
+        if (isset($this->definitionMaps[$this->class])) {
             return $this->applyMap($this->getRawAttributes($attributes), $this->definitionMaps[$this->class][$this->name]);
             return $instance;
         }
@@ -337,14 +337,15 @@ class FactoryBuilder
         return $instance;
     }
 
-    protected function applyMap( $attributes, $classMaps ){
+    protected function applyMap($attributes, $classMaps)
+    {
         $models = collect();
-        foreach($classMaps as $attribute => $class) {
+        foreach ($classMaps as $attribute => $class) {
             $model = new $class();
             $model->setDataFromResource($attributes[$attribute]);
             $name = $attributes['name'] ? "{$attributes['name']}{$attribute}" : $attribute;
             $model->setName($name);
-            $model->setDocumentId($attributes['documentId'] );
+            $model->setDocumentId($attributes['documentId']);
             $models->add($model);
         }
         return $models;
@@ -360,7 +361,7 @@ class FactoryBuilder
     protected function applyStates(array $definition, array $attributes = [])
     {
         foreach ($this->activeStates as $state) {
-            if (! isset($this->states[$this->class][$state])) {
+            if (!isset($this->states[$this->class][$state])) {
                 if ($this->stateHasAfterCallback($state)) {
                     continue;
                 }
@@ -388,7 +389,7 @@ class FactoryBuilder
     {
         $stateAttributes = $this->states[$this->class][$state];
 
-        if (! is_callable($stateAttributes)) {
+        if (!is_callable($stateAttributes)) {
             return $stateAttributes;
         }
 
@@ -408,7 +409,7 @@ class FactoryBuilder
     protected function expandAttributes(array $attributes)
     {
         foreach ($attributes as &$attribute) {
-            if (is_callable($attribute) && ! is_string($attribute) && ! is_array($attribute)) {
+            if (is_callable($attribute) && !is_string($attribute) && !is_array($attribute)) {
                 $attribute = $attribute($attributes);
             }
 
@@ -498,7 +499,7 @@ class FactoryBuilder
      */
     protected function callAfterCallbacks(array $afterCallbacks, $model, $state)
     {
-        if (! isset($afterCallbacks[$this->class][$state])) {
+        if (!isset($afterCallbacks[$this->class][$state])) {
             return;
         }
 
@@ -516,6 +517,6 @@ class FactoryBuilder
     protected function stateHasAfterCallback($state)
     {
         return isset($this->afterMaking[$this->class][$state]) ||
-               isset($this->afterCreating[$this->class][$state]);
+            isset($this->afterCreating[$this->class][$state]);
     }
 }
