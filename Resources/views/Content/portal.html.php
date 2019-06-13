@@ -21,12 +21,15 @@ $this->extend('layout.html.php');
 
 ?>
 
-    <?= $this->areablock('content',
+    <?= $this->areablock(
+        'content',
         [
             'allowed' => [
+                'wrapper',
                 'gallery-carousel',
                 'wysiwyg',
                 'highlight',
+                'contact-card',
                 'relatable',
                 'hero',
                 'image',
@@ -37,4 +40,6 @@ $this->extend('layout.html.php');
                 'section-title',
                 'testimonial',
                 'directions',
-            ]]) ?>
+            ]
+        ]
+    ) ?>
