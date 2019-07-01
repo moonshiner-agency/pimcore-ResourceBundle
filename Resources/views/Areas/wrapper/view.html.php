@@ -24,7 +24,6 @@ $id = 'areaBlock';
 
 
 <?php if ($this->editmode) {
-
     ?>
     <section>
         <div class="cms-component-type">Wrapper</div>
@@ -55,11 +54,10 @@ $id = 'areaBlock';
                 'directions',
             ]
         ]) ?>
-        </div>
     </section>
 <?php
 } else {
-    $areaBlock = $this->areablock($id, [
+            $areaBlock = $this->areablock($id, [
         "manual" => true,
         'allowed' => [
             'gallery-carousel',
@@ -80,27 +78,27 @@ $id = 'areaBlock';
         ]
     ])->start();
 
-    $componentsCopy = $this->slots()->components;
+            $componentsCopy = $this->slots()->components;
 
-    $this->slots()->components = [];
-    while ($areaBlock->loop()) {
-        $areaBlock->blockConstruct();
-        $areaBlock->blockStart();
-        $areaBlock->content();
-        $areaBlock->blockEnd();
-        $areaBlock->blockDestruct();
-    }
+            $this->slots()->components = [];
+            while ($areaBlock->loop()) {
+                $areaBlock->blockConstruct();
+                $areaBlock->blockStart();
+                $areaBlock->content();
+                $areaBlock->blockEnd();
+                $areaBlock->blockDestruct();
+            }
 
-    $areaBlock->end();
+            $areaBlock->end();
 
-    $elements = $this->slots()->components;
+            $elements = $this->slots()->components;
 
 
-    $this->slots()->components = $componentsCopy;
-    $this->slots()->components[] = [
+            $this->slots()->components = $componentsCopy;
+            $this->slots()->components[] = [
         'type' => 'wrapper',
         'isFullWidth' => $this->checkbox("fullWidth")->isChecked(),
         'theme' => $this->select('theme')->getData(),
         'data' => $elements
     ];
-} ?>
+        } ?>
