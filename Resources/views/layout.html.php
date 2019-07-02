@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Pimcore
  *
@@ -17,6 +18,7 @@
  * @var \Pimcore\Templating\PhpEngine $view
  * @var \Pimcore\Templating\GlobalVariables $app
  */
+
 use Pimcore\Model\Document;
 use Pimcore\Model\Document\Page;
 
@@ -28,7 +30,7 @@ if (!$document) {
     // use "home" document as default if no document is present
     $document = Document::getById(1);
 }
-$this->slots()->components = [];
+
 if ($document->getTitle()) {
     // use the manually set title if available
     $this->headTitle()->set($document->getTitle());
@@ -94,8 +96,8 @@ if ($this->editmode) {
         <style>
             section {
                 border: 1px solid black;
-                padding: 40px 20px;
-                margin: 50px 20px;
+                padding: 100px 20px;
+                margin: 40px 20px;
                 position: relative;
             }
 
@@ -109,14 +111,16 @@ if ($this->editmode) {
             }
         </style>
 
-        <?php $this->slots()->output('_content') ?>
-
+        <?php
+        $this->slots()->output('_content');
+        ?>
         <?php
         // include a document-snippet - in this case the footer document
-        echo $this->inc('/' . $this->language . '/shared/includes/footer');
+        // echo $this->inc('/' . $this->language . '/shared/includes/footer');
 
         // global scripts, we use the view helper here to have the cache buster functionality
-        echo $this->headScript(); ?>
+        echo $this->headScript();
+        ?>
 
 
     </body>

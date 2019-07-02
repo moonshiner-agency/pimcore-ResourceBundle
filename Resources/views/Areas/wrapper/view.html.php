@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Pimcore
  *
@@ -19,7 +20,6 @@
  */
 
 $id = 'areaBlock';
-
 ?>
 
 
@@ -57,9 +57,10 @@ $id = 'areaBlock';
     </section>
 <?php
 } else {
-            $areaBlock = $this->areablock($id, [
+    $areaBlock = $this->areablock($id, [
         "manual" => true,
         'allowed' => [
+            'wrapper',
             'gallery-carousel',
             'wysiwyg',
             'highlight',
@@ -78,27 +79,28 @@ $id = 'areaBlock';
         ]
     ])->start();
 
-            $componentsCopy = $this->slots()->components;
+    $componentsCopy = $this->slots()->components;
 
-            $this->slots()->components = [];
-            while ($areaBlock->loop()) {
-                $areaBlock->blockConstruct();
-                $areaBlock->blockStart();
-                $areaBlock->content();
-                $areaBlock->blockEnd();
-                $areaBlock->blockDestruct();
-            }
+    $this->slots()->components = [];
+    while ($areaBlock->loop()) {
+        $areaBlock->blockConstruct();
+        $areaBlock->blockStart();
+        $areaBlock->content();
+        $areaBlock->blockEnd();
+        $areaBlock->blockDestruct();
+    }
 
-            $areaBlock->end();
+    $areaBlock->end();
 
-            $elements = $this->slots()->components;
+    $elements = $this->slots()->components;
 
 
-            $this->slots()->components = $componentsCopy;
-            $this->slots()->components[] = [
+    $this->slots()->components = $componentsCopy;
+
+    $this->slots()->components[] = [
         'type' => 'wrapper',
         'isFullWidth' => $this->checkbox("fullWidth")->isChecked(),
         'theme' => $this->select('theme')->getData(),
         'data' => $elements
     ];
-        } ?>
+} ?>
