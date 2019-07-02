@@ -18,11 +18,17 @@
  * @var \Pimcore\Templating\GlobalVariables $app
  */
 ?>
-
-<section class="area-gallery-carousel">
+  <?php
+        $id = 'gallery-carousel-' . uniqid();
+    $slides = 2; // default value
+    if (!$this->select('slides')->isEmpty()) {
+        $slides = (int) $this->select('slides')->getData();
+    } ?>
 
     <?php if ($this->editmode) {
-    ?>
+        ?>
+<section class="area-gallery-carousel">
+
         <div class="alert alert-info" style="height: 75px">
             <div class="col-xs-6">
                 How many images you want to show?
@@ -30,9 +36,9 @@
                 <?php
                     // prepare the store
                     $selectStore = [];
-    for ($i = 2; $i < 30; $i++) {
-        $selectStore[] = [$i, $i];
-    } ?>
+        for ($i = 2; $i < 30; $i++) {
+            $selectStore[] = [$i, $i];
+        } ?>
                 <?= $this->select('slides', [
                     'store' => $selectStore,
                     'reload' => true,
@@ -50,38 +56,31 @@
                 min-height: 200px;
             }
         </style>
-    <?php
-} ?>
 
-    <?php
-        $id = 'gallery-carousel-' . uniqid();
-        $slides = 2; // default value
-        if (!$this->select('slides')->isEmpty()) {
-            $slides = (int) $this->select('slides')->getData();
-        }
-    ?>
+
+
     <div id="<?= $id ?>" class="gallery carousel slide">
         <!-- Indicators -->
         <?php $showPreview = $this->checkbox('showPreviews')->isChecked() && !$this->editmode; ?>
         <ol class="carousel-indicators <?= $showPreview ? 'preview visible-lg' : '' ?>">
             <?php for ($i = 0; $i < $slides; $i++) {
-        ?>
+                    ?>
                 <li data-target="#<?= $id ?>" data-slide-to="<?= $i ?>" class="<?= ($i == 0 ? 'active' : '') ?>">
                     <?php if ($showPreview) {
-            ?>
+                        ?>
                         <?= $this->image('image_' . $i, [
                             'thumbnail' => 'galleryCarouselPreview'
                         ]) ?>
                     <?php
-        } ?>
+                    } ?>
                 </li>
             <?php
-    } ?>
+                } ?>
         </ol>
 
         <div class="carousel-inner">
             <?php for ($i = 0; $i < $slides; $i++) {
-        ?>
+                    ?>
 
                 <div class="item <?= ($i == 0 ? 'active' : '') ?> <?= $id . '-' . $i ?>" data-track-content data-content-name="gallery-slider" data-content-piece="<?= $this->image('image_' . $i)->getImage() ?>">
                     <?= $this->image('image_' . $i, [
@@ -105,7 +104,7 @@
                     </div>
                 </div>
             <?php
-    } ?>
+                } ?>
         </div>
 
         <a class="left carousel-control" href="#<?= $id ?>" data-slide="prev">
@@ -115,5 +114,23 @@
             <span class="glyphicon glyphicon-chevron-right"></span>
         </a>
     </div>
+    </section>
+    <?php
+    } else {
+        $data = [];
+        for ($i = 0; $i < $slides; $i++) {
+            $image = $this->image('image_' . $i, [
+                'thumbnail' => 'galleryCarousel',
+                'dropClass' => $id . '-' . $i,
+                'defaultHeight' => 200
+            ]);
 
-</section>
+            $data[] = [
+                'title' => $this->input('caption-title-' . $i, ['width' => 400])->getData(),
+                'text' => $this->textarea('caption-text-' . $i, ['width' => 400])->getData(),
+                'image' => $image->getThumbnail('galleryCarousel') !== '' ? (\Pimcore\Tool::getHostUrl() . $image->getThumbnail('galleryCarousel')->getPath()) : null,
+            ];
+        }
+        $this->slots()->components[] = ['type' => 'gallery-carousel', 'data' => $data];
+    }?>
+
