@@ -142,7 +142,6 @@ class FormAssembler
         $viewVars['main_layout'] = $this->optionsResolver->getMainLayout();
         $viewVars['form'] = $form->createView();
         $viewVars['formData'] = $form;
-        xdebug_break();
 
         return $viewVars;
     }
