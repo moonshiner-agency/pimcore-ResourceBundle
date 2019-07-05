@@ -1,30 +1,32 @@
 {
-    "name" : "moonshiner/brigthenbundle",
-    "description" : "Extended bundle for pimcore",
-    "type" : "symfony-bundle",
-    "authors" : [{
-        "name" : "Victor Casanas",
-        "email" : "victor.casanas@moonshiner.at"
-    }],
-    "keywords" : [
-        "pimcore bundle"
-    ],
-    "license" : [
-        "MIT"
-    ],
-    "require" : {
-    },
-    "autoload" : {
-        "psr-0" : {
-            "Moonshiner\\BrigthenBundle" : ""
-        }
-    },
-    "target-dir" : "Moonshiner/BrigthenBundle",
-    "repositories" : [{
-    }],
-    "extra" : {
-    "branch-alias" : {
-            "dev-master" : "1.0"
-        }
+  "name": "moonshiner/brigthenbundle",
+  "description": "Extended bundle for pimcore",
+  "type": "symfony-bundle",
+  "authors": [
+    {
+      "name": "Victor Casanas",
+      "email": "victor.casanas@moonshiner.at"
     }
+  ],
+  "keywords": [
+    "pimcore bundle"
+  ],
+  "license": [
+    "MIT"
+  ],
+  "require": {
+    "dachcom-digital/formbuilder": "^2.7",
+    "limenius/liform-bundle": "^0.13.0"
+  },
+  "autoload": {
+    "psr-0": {
+      "Moonshiner\\BrigthenBundle": ""
+    }
+  },
+  "target-dir": "Moonshiner/BrigthenBundle",
+  "extra": {
+    "branch-alias": {
+      "dev-master": "1.0"
+    }
+  }
 }

@@ -28,6 +28,7 @@ $this->extend('layout.html.php');
                 'wrapper',
                 'gallery-carousel',
                 'gallery-single-images',
+                'form',
                 'wysiwyg',
                 'highlight',
                 'contact-card',

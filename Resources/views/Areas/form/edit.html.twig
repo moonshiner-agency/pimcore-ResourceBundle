@@ -1,0 +1,36 @@
+<div class="form-config-window">
+    <div class="fb-row">
+        <div class="fb-col fb-col-half">
+            <div class="fb-form-group">
+                <label for="form">{{'form_builder.area.form'|trans({}, 'admin') }}</label><br>
+                {{ pimcore_select('formName', { width: 240, store: formStore }) }}
+            </div>
+        </div>
+    </div>
+
+    {% if formPresetStore is defined %}
+
+        <div class="fb-row">
+            <div class="fb-col fb-col-half">
+                <div class="fb-form-group">
+                    <label for="form">{{ 'form_builder.area.form_preset'|trans({}, 'admin') }}</label><br>
+                    {{ pimcore_select('formPreset', { width: 240, store: formPresetStore }) }}
+                </div>
+            </div>
+        </div>
+        <div class="fb-row">
+            <div class="fb-col fb-col-full">
+                <div class="preview-fields clearfix">
+                    <h5>{{ 'form_builder.area.form_preset_info'|trans({}, 'admin') }}</h5>
+                    {% for formPresetPreview in formPresetsInfo %}
+                        <div class="preview-field" data-name="{{ formPresetPreview.presetName }}">
+                            {% if formPresetPreview.description is not empty %}
+                                <div class="description">{{ formPresetPreview.description }}</div>
+                            {% endif %}
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    {% endif %}
+</div>
