@@ -128,10 +128,11 @@ class Form extends AbstractTemplateAreabrick
         $optionBuilder->setFormPreset($formPreset);
         $this->formAssembler->setFormOptionsResolver($optionBuilder);
         $assemblerViewVars = $this->formAssembler->assembleViewVars();
-
         foreach (array_merge($editViewVars, $assemblerViewVars) as $var => $varValue) {
             $view->{$var} = $varValue;
         }
+        $csrf = $this->container->get('security.csrf.token_manager');
+        $view->csrfToken = $csrf->refreshToken('pimcore')->getValue();
         $view->formData = $this->liform->transform($assemblerViewVars['formData']);
     }
 

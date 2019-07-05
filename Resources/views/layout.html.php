@@ -17,7 +17,6 @@
  * @var \Pimcore\Templating\PhpEngine $view
  * @var \Pimcore\Templating\GlobalVariables $app
  */
-
 use Pimcore\Model\Document;
 use Pimcore\Model\Document\Page;
 
@@ -124,15 +123,13 @@ if ($this->editmode) {
         </style>
 
 <?php
-        $this->slots()->output('_content');
-        ?>
+        $this->slots()->output('_content'); ?>
         <?php
         // include a document-snippet - in this case the footer document
         // echo $this->inc('/' . $this->language . '/shared/includes/footer');
 
         // global scripts, we use the view helper here to have the cache buster functionality
-        echo $this->headScript();
-        ?>
+        echo $this->headScript(); ?>
 
 
     </body>
@@ -140,13 +137,13 @@ if ($this->editmode) {
     </html>
 <?php
 } else {
-        if ($document->getTitle()) {
-            // use the manually set title if available
-            $this->headTitle()->set($document->getTitle());
+            if ($document->getTitle()) {
+                // use the manually set title if available
+                $this->headTitle()->set($document->getTitle());
+            }
+            $this->slots()->output('_content');
+            echo json_encode(['meta' => [
+                'title' => $this->headTitle()->getRawContent(),
+                'description' => $this->headMeta()->getItem('name', 'description'),
+            ], 'data' => $this->slots()->components]);
         }
-        $this->slots()->output('_content');
-        echo json_encode(['meta' => [
-            'title' => $this->headTitle()->getRawContent(),
-            'description' => $this->headMeta()->getItem('name', 'description'),
-        ], 'data' => $this->slots()->components]);
-    }

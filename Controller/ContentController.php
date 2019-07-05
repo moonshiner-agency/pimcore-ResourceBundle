@@ -16,12 +16,11 @@ namespace Moonshiner\BrigthenBundle\Controller;
 
 use function GuzzleHttp\json_decode;
 use Pimcore\Bundle\AdminBundle\HttpFoundation\JsonResponse;
-use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
 class ContentController extends AbstractController
 {
-    public function portalAction(Request $request)
+    public function portalAction()
     {
         $this->view->isPortal = true;
         $test = $this->render(':Content:portal.html.php', ['document' => $this->document]);
@@ -31,7 +30,6 @@ class ContentController extends AbstractController
             }
         } catch (\Exception $e) {
             $response = new Response($test->getContent());
-            xdebug_break();
         }
 
         return $response;

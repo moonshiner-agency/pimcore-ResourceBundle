@@ -66,11 +66,9 @@ class CompoundTransformer extends AbstractTransformer
         }
 
         $schema = [
-            'title' => $form->getConfig()->getOption('label'),
             'type' => 'object',
             'properties' => $data,
         ];
-
         if (!empty($required)) {
             $schema['required'] = $required;
         }
