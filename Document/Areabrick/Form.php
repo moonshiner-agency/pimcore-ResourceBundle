@@ -133,7 +133,9 @@ class Form extends AbstractTemplateAreabrick
         }
         $csrf = $this->container->get('security.csrf.token_manager');
         $view->csrfToken = $csrf->refreshToken('pimcore')->getValue();
-        $view->formData = $this->liform->transform($assemblerViewVars['formData']);
+        if ($assemblerViewVars['formData']) {
+            $view->formData = $this->liform->transform($assemblerViewVars['formData']);
+        }
     }
 
     /**

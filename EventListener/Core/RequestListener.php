@@ -119,7 +119,6 @@ class RequestListener implements EventSubscriberInterface
         try {
             $userOptions = isset($formConfiguration['user_options']) ? $formConfiguration['user_options'] : [];
             $form = $this->formBuilder->buildForm($formId, ['csrf_protection' => false]);
-            xdebug_break();
 
             $csrfToken = $this->csrfTokenManager->refreshToken('formbuilder_'.$formId)->getValue();
             $form->submit(array_merge($data, ['_token' => $csrfToken]));
@@ -143,7 +142,8 @@ class RequestListener implements EventSubscriberInterface
             }
 
             $submissionEvent = new SubmissionEvent($request, $formConfiguration, $form);
-            $this->eventDispatcher->dispatch(FormBuilderEvents::FORM_SUBMIT_SUCCESS, $submissionEvent);
+            // not using the standard FormBuilderEvents::FORM_SUBMIT_SUCCESS - to prevent maillistener from reacting to the event
+            $this->eventDispatcher->dispatch('form_builder.submitted.success', $submissionEvent);
 
             if ($request->isXmlHttpRequest()) {
                 $this->handleAjaxSuccessResponse($event, $submissionEvent, $formId);
