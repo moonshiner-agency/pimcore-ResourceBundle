@@ -8,19 +8,20 @@ use Symfony\Component\Console\Output\ConsoleOutput;
 
 trait InteractsWithConsole
 {
-    public function console($command, $parameters = [])
+    public function console($command, $parameters = [], $application = null)
     {
-        if(! $kernel = $this->kernel )
-        {
-            $kernel = static::bootKernel();
+        if (! $application) {
+            if (! $kernel = $this->kernel) {
+                $kernel = \Pimcore::getKernel();
+            }
+            $application = new Application($kernel);
         }
-        $application = new Application($kernel);
-        $application->setAutoExit(false);
 
-        $input = new ArrayInput( array_merge([
+        $application->setAutoExit(false);
+        $input = new ArrayInput(array_merge([
             'command' => $command,
             '-q' => true,
-        ], $parameters  ) );
+        ], $parameters));
 
         $output = new  ConsoleOutput();
         $application->run($input, $output);
