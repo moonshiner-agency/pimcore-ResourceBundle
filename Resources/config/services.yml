@@ -3,5 +3,6 @@ services:
         class: Moonshiner\BrigthenBundle\Services\ResourceInterface
     Moonshiner\BrigthenBundle\Security\User\UserProvider: ~
     Moonshiner\BrigthenBundle\Security\User\CustomerProvider: ~
+    Moonshiner\BrigthenBundle\Services\Navigation: ~
     Moonshiner\BrigthenBundle\Service\Factory:
         true
