@@ -19,23 +19,22 @@
  */
 ?>
 
-
-    <?php
-    if (!$this->editmode) {
-        $image = $this->image('image');
-        $this->slots()->components[] = ['type' => 'image', 'content' => \Pimcore\Tool::getHostUrl() . $image->getThumbnail('galleryLightbox')->getPath(), 'hotspots' => $image->getHotSpots(), 'name' => $image->getName()];
-    } else {
-        ?>
-<section class="area-image">
-
-
-
-        <?= $this->image('image', [
-            'thumbnail' => 'content'
-        ]); ?>
-</section>
-        <?php
-    }?>
-
-
+<?php
+if (!$this->editmode) {
+    $image = $this->image('image');
+    $this->slots()->components[] = ['type' => 'image', 'content' => \Pimcore\Tool::getHostUrl() . $image->getThumbnail('galleryLightbox')->getPath(), 'hotspots' => $image->getHotSpots(), 'name' => $image->getName()];
+} else {
+    ?>
+    <section class="area-image">
+        <div class="cms-component-type">Image</div>
+        <div class="row">
+            <div class="col-sm-4 mb-20">
+            <?= $this->image('image', [
+                'thumbnail' => 'content'
+            ]); ?>
+            </div>
+        </div>
+    </section>
+<?php
+} ?>
 

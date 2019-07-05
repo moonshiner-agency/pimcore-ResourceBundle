@@ -1,5 +1,4 @@
 <?php
-
 /**
  * Pimcore
  *
@@ -58,28 +57,28 @@ if ($this->editmode) {
         /** @var Document|Page $document */
         $document = $this->document;
 
-        // output the collected meta-data
-        if (!$document) {
-            // use "home" document as default if no document is present
-            $document = Document::getById(1);
-        }
+    // output the collected meta-data
+    if (!$document) {
+        // use "home" document as default if no document is present
+        $document = Document::getById(1);
+    }
 
-        if ($document->getTitle()) {
-            // use the manually set title if available
-            $this->headTitle()->set($document->getTitle());
-        }
+    if ($document->getTitle()) {
+        // use the manually set title if available
+        $this->headTitle()->set($document->getTitle());
+    }
 
-        if ($document->getDescription()) {
-            // use the manually set description if available
-            $this->headMeta()->appendName('description', $document->getDescription());
-        }
+    if ($document->getDescription()) {
+        // use the manually set description if available
+        $this->headMeta()->appendName('description', $document->getDescription());
+    }
 
-        $this->headTitle()->append('pimcore Demo');
-        $this->headTitle()->setSeparator(' : ');
+    $this->headTitle()->append('pimcore Demo');
+    $this->headTitle()->setSeparator(' : ');
 
-        echo $this->headTitle();
-        echo $this->headMeta();
-        echo $this->placeholder('canonical'); ?>
+    echo $this->headTitle();
+    echo $this->headMeta();
+    echo $this->placeholder('canonical'); ?>
 
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
@@ -96,8 +95,8 @@ if ($this->editmode) {
         <style>
             section {
                 border: 1px solid black;
-                padding: 100px 20px;
-                margin: 40px 20px;
+                padding: 60px 20px 40px 20px;
+                margin: 50px 20px;
                 position: relative;
             }
 
@@ -109,9 +108,22 @@ if ($this->editmode) {
                 padding: 5px 5px;
                 color: #9e9e9e;
             }
+
+            .mb-10 {
+                margin-bottom: 10px;
+            }
+            .mb-20 {
+                margin-bottom: 20px;
+            }
+            .pimcore_tag_textarea {
+                padding: 5px;
+            }
+            .pimcore_tag_input {
+                padding: 5px;
+            }
         </style>
 
-        <?php
+<?php
         $this->slots()->output('_content');
         ?>
         <?php
@@ -128,13 +140,13 @@ if ($this->editmode) {
     </html>
 <?php
 } else {
-    if ($document->getTitle()) {
-        // use the manually set title if available
-        $this->headTitle()->set($document->getTitle());
+        if ($document->getTitle()) {
+            // use the manually set title if available
+            $this->headTitle()->set($document->getTitle());
+        }
+        $this->slots()->output('_content');
+        echo json_encode(['meta' => [
+            'title' => $this->headTitle()->getRawContent(),
+            'description' => $this->headMeta()->getItem('name', 'description'),
+        ], 'data' => $this->slots()->components]);
     }
-    $this->slots()->output('_content');
-    echo json_encode(['meta' => [
-        'title' => $this->headTitle()->getRawContent(),
-        'description' => $this->headMeta()->getItem('name', 'description'),
-    ], 'data' => $this->slots()->components]);
-}

@@ -27,6 +27,7 @@ $this->extend('layout.html.php');
             'allowed' => [
                 'wrapper',
                 'gallery-carousel',
+                'gallery-single-images',
                 'wysiwyg',
                 'highlight',
                 'contact-card',

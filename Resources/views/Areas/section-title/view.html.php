@@ -22,7 +22,7 @@
 <?php if ($this->editmode) {
     ?>
     <section>
-        <div class="cms-component-type">section-title</div>
+        <div class="cms-component-type">Section Title</div>
         <div class="row">
             <div class="col-md-6 col-md-offset-3 text-center">
                 <h1><?= $this->input('title', ['placeholder' => 'Title']) ?></h1>
@@ -32,14 +32,13 @@
         </div>
     </section>
     <?php
-
 } else {
-    $this->slots()->components[] = [
-        'type' => 'section-title',
-        'title' => $this->input('title')->getData(),
-        'subtitle' => $this->input('subtitle')->getData(),
-        'description' => $this->textarea('description')->getData(),
-    ];
-}
+        $this->slots()->components[] = [
+            'type' => 'CmsSectionHeader',
+            'title' => $this->input('title')->getData(),
+            'subtitle' => $this->input('subtitle')->getData(),
+            'description' => $this->textarea('description')->getData(),
+        ];
+    }
 ?>
 

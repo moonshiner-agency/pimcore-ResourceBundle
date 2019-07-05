@@ -23,6 +23,7 @@
 <?php if ($this->editmode) {
     ?>
     <section class="col-md-8 mb-20">
+        <div class="cms-component-type">Hero</div>
         <div><?= $this->image('image') ?></div>
         <h1><?= $this->input('title', ['placeholder' => 'Title']) ?></h1>
         <p><?= $this->input('subline', ['placeholder' => 'Subline']) ?></p>
@@ -35,7 +36,7 @@
         $data = [];
 
         $this->slots()->components[] = [
-            'type' => 'hero',
+            'type' => 'CmsHero',
             'title' => $this->input('title')->getData(),
             'subline' => $this->input('subline')->getData(),
             'image' => $image->getThumbnail('galleryLightbox') !== '' ? \Pimcore\Tool::getHostUrl() . $image->getThumbnail('galleryLightbox')->getPath() : null,

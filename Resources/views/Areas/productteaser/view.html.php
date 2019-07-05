@@ -12,24 +12,29 @@
  * @license    http://www.pimcore.org/license     GPLv3 and PEL
  */
 
-
 /**
  * @var \Pimcore\Templating\PhpEngine $this
  * @var \Pimcore\Templating\PhpEngine $view
  * @var \Pimcore\Templating\GlobalVariables $app
  */
 ?>
-<div class="row">
-    <?php while($this->block("teaserblock")->loop()) { ?>
+<section>
+    <div class="cms-component-type">Product Teaser</div>
+    <div class="row">
+        <div class="col-sm-4 mb-20">
 
-        <?php echo $this->renderlet("productteaser", array(
-            "controller" => "shop",
-            "action" => "product-cell",
-            "editmode" => $this->editmode,
-            "title" => "Drag a product here",
-            "height" => 370,
-            "width" => 270
-        )); ?>
+            <?php while ($this->block('teaserblock')->loop()) { ?>
+                <?php echo $this->renderlet('productteaser', [
+                    'controller' => 'shop',
+                    'action' => 'product-cell',
+                    'editmode' => $this->editmode,
+                    'title' => 'Drag a product here',
+                    'height' => 370,
+                    'width' => 270
+                ]); ?>        
+            <?php } ?>
 
-    <?php } ?>
-</div>
+        </div>
+    </div>
+</section>
+

@@ -23,7 +23,7 @@
 <?php if ($this->editmode) {
     ?>
     <section>
-        <div class="cms-component-type">directions</div>
+        <div class="cms-component-type">Directions</div>
         <div class="row">
             <div class="col-md-6">
                 <p><?= $this->wysiwyg('text', ['placeholder' => 'Text']) ?></p>

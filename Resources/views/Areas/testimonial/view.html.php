@@ -18,48 +18,67 @@
  * @var \Pimcore\Templating\GlobalVariables $app
  */
 ?>
+
+<?php $block = $this->block('testimonialblock', ['default' => '1']); ?>
+
 <?php
-
-$columnCount = (int) $this->input('columnCount')->getData();
-if ($columnCount == 0) {
-    $columnCount = 3;
-}
-
  if (! $this->editmode) {
      $data = [];
-     for ($i = 0; $i < $columnCount; $i++) {
+     while ($block->loop()) {
          $data[] = [
-             'headline' => $this->input('headline_' . $i)->getData(),
-             'text' => $this->textarea('text_' . $i)->getData(),
-             'name' => $this->input('name_' . $i)->getData(),
-             'origin' => $this->input('origin_' . $i)->getData(),
+             'title' => $this->input('headline')->getData(),
+             'text' => $this->textarea('text')->getData(),
+             'name' => $this->input('name')->getData(),
+             'origin' => $this->input('origin')->getData(),
          ];
      }
-     $this->slots()->components[] = ['type' => 'testimonial', 'data' => $data];
+
+     if ($block->getCount() <= 1) {
+         $this->slots()->components[] = [
+             'type' => 'CmsQuote',
+             'data' => ($data[0] ? $data[0] : $data)
+         ];
+     } else {
+         $this->slots()->components[] = [
+             'type' => 'CmsQuoteList',
+             'items' => $data
+         ];
+     }
  } else { ?>
     <section>
-        <div class="cms-component-type">testimonial</div>
+        <div class="cms-component-type">Testimonial</div>
         <div class="row">
-            <div class="col-sm-3">
-                Number of items:
-                <?= $this->input('columnCount', ['placeholder' => '3']) ?>
-            </div>
-        </div>
-        <div class="row">
-            <?php for ($i = 0; $i < $columnCount; $i++) { ?>
+        <div class="mb-20">
+            <?php while ($block->loop()) { ?>
                 <div class="col-sm-4 mb-20">
-                    <h4>
-                        <?= $this->input('headline_'.$i, ['placeholder' => 'Headline']) ?>
-                    </h4>
-                    <p>
-                        <?= $this->textarea('text_'.$i, ['placeholder' => 'Testimonial text']) ?>
-                    </p>
-                    <p><?= $this->input('name_'.$i, ['placeholder' => 'Name']) ?></p>
-                    <strong><?= $this->input('origin_'.$i, ['placeholder' => 'Origin']) ?></strong>
+                    <div class="mb-20">
+                        <label>Headline:</label><br />
+                        <h3 class="noMarginTop">
+                            <?= $this->input('headline', ['placeholder' => 'Headline']) ?>
+                        </h3>
+                    </div>
+                    <div class="mb-20">
+                        <label>Text:</label><br />
+                        <?= $this->textarea('text', ['placeholder' => 'Testimonial text', 'height' => 100]) ?>
+                    </div>
+                    <div class="mb-20">
+                        <label>Name:</label><br />
+                        <?= $this->input('name', ['placeholder' => 'Name']) ?>
+                    </div>
+                    <div class="mb-20">
+                        <label>Origin:</label><br />
+                        <?= $this->input('origin', ['placeholder' => 'Origin']) ?>
+                    </div>
                 </div>
             <?php } ?>
         </div>
     </section>
+
+    <style>
+        h3.noMarginTop {
+            margin-top: 0;
+        }
+    </style>
     <?php
  }
 ?>

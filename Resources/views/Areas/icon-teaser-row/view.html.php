@@ -18,84 +18,110 @@
  * @var \Pimcore\Templating\GlobalVariables $app
  */
 ?>
-<?php
-    $columnCount = (int) $this->input('columnCount')->getData();
-    if ($columnCount == 0) {
-        $columnCount = 3;
-    }
 
+<?php $block = $this->block('iconTeaserBlock', ['default' => 1]); ?>
+
+<?php
     if (!$this->editmode) {
         $data = [];
-        for ($t = 0; $t < $columnCount; $t++) {
-            $image = $this->image('image'.$t);
+        while ($block->loop()) {
+            $tagBlock = $this->block('iconTeaserTagBlock'.$block->getCurrent(), ['default' => 1]);
 
+            $tags = [];
+            while ($tagBlock->loop()) {
+                $tags[] = [
+                    'text' => $this->input('tag_text')->getData(),
+                    'icon' => $this->select('tag_icon')->getData()
+                ];
+            }
+
+            $image = $this->image('image');
             $data[] = [
-                'title' => $this->input('title_' . $t)->getData(),
+                'title' => $this->input('title')->getData(),
                 'image' => $image->getThumbnail('galleryLightbox') !== '' ? (\Pimcore\Tool::getHostUrl() . $image->getThumbnail('galleryLightbox')->getPath()) : null,
-                'text' => $this->textarea('text_' . $t)->getData(),
-                'isSmall' => $this->checkbox('isSmall_' . $t)->isChecked(),
-                'tag' => [
-                    'text' => $this->input('tag_text_' . $t)->getData(),
-                    'icon' => $this->select('tag_icon_' . $t)->getData(),
-                ]
+                'content' => $this->textarea('text')->getData(),
+                'number' => $this->input('number')->getData(),
+                'isSmall' => $this->checkbox('isSmall')->isChecked(),
+                'tags' => $tags,
+            ];
+            $tagID++;
+        }
+
+        if ($block->getCount() <= 1) {
+            $this->slots()->components[] = [
+                'type' => 'CmsListItem',
+                'data' => ($data[0] ? $data[0] : $data)
+            ];
+        } else {
+            $this->slots()->components[] = [
+                'type' => 'CmsList',
+                'items' => $data
             ];
         }
-        $this->slots()->components[] = ['type' => 'icon-teaser-row', 'data' => $data];
     } else {
         ?>
     <section class="area-icon-teaser-row">
-        <div class="cms-component-type">icon-teaser</div>
+        <div class="cms-component-type">Icon Teaser</div>
         <div class="row">
-            <div class="col-sm-3">
-                Number of items:
-                <?= $this->input('columnCount', ['placeholder' => '3']) ?>
-            </div>
-        </div>
-        <div class="row">
-        <?php for ($t = 0; $t < $columnCount; $t++) {
-            ?>
-            <div class="col-sm-3">
-                <?= $this->image('image'.$t, [
-                    'thumbnail' => 'galleryLightbox'
-                ]); ?>
+            <?php while ($block->loop()) { ?>
+                <div class="col-sm-4">
+                    <div class="mb-20">
+                        <label>Image:</label><br />
+                        <?= $this->image('image', [
+                            'thumbnail' => 'galleryLightbox'
+                        ]); ?>
+                    </div>
 
-                <h3 class="title"><?= $this->input('title_' . $t, ['placeholder' => 'Title']) ?></h3>
-                <p>
-                    <?= $this->textarea('text_' . $t, ['placeholder' => 'Text']) ?>
-                </p>
+                    <div class="mb-20">
+                        <label>Title:</label><br />
+                        <h3 class="title noMarginTop"><?= $this->input('title', ['placeholder' => 'Title']) ?></h3>
+                    </div>
 
-                <p>
-                    <strong>Tag:</strong><br />
-                    <?= $this->input('tag_text_' . $t, ['placeholder' => 'Tag title']) ?>
-                    <?= $this->select('tag_icon_' . $t, [
-                        'store' => ['car', 'pinLocation', 'people', 'area'],
-                        'width' => 150
-                    ]); ?>
-                </p>
+                    <div class="mb-20">
+                        <label>Text:</label><br />
+                        <?= $this->textarea('text', ['placeholder' => 'Text', 'height' => '70']) ?>
+                    </div>
 
-                <p>
-                    <strong>Größe:</strong><br />
-                    <?= $this->checkbox('isSmall_' . $t) ?> klein
-                </p>
+                    <div class="mb-20">
+                        <label>Number:</label><br />
+                        <?= $this->input('number', ['placeholder' => 'Number']) ?>
+                    </div>
 
-                <?php /*
-                <div>
-                    Link: <?= $this->link('link_' . $t, ['class' => 'btn btn-default']) ?>
+                    <div class="mb-20">
+                        <label>Size:</label><br />
+                        <?= $this->checkbox('isSmall') ?> small
+                    </div>
+
+                    <div class="mb-20">
+                        <label>Tags:</label><br />
+
+                        <?php $tagBlock = $this->block('iconTeaserTagBlock'.$block->getCurrent()); ?>
+                        <?php while ($tagBlock->loop()) { ?>
+                            <p>Tag <?= $tagBlock->getCurrent()+1 ?>:</p>
+                            <div class="mb-20">
+                                <p>Tag title:</p>
+                                <?= $this->input('tag_text', ['placeholder' => 'Tag title']) ?>
+                            </div>
+                            <div class="mb-20">
+                                <p>Tag icon:</p>
+                                <?= $this->select('tag_icon', [
+                                    'store' => ['car', 'pinLocation', 'people', 'area'],
+                                    'width' => 150
+                                ]); ?>
+                            </div>
+                        <?php } ?>
+                    </div>
+
                 </div>
-                */ ?>
-
-                <?php
-                    // link?
-                    // linktext?
-                    // size: default, small
-                    // tag title
-                    // tag icon: selectbox
-                ?>
-
-            </div>
-            <?php
-        } ?>
+            <?php } ?>
         </div>
     </section>
+
+    <style>
+        h3.noMarginTop {
+            margin-top: 0;
+        }
+    </style>
+
 <?php
     } ?>
