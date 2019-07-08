@@ -26,6 +26,7 @@ $this->extend('layout.html.php');
         [
             'allowed' => [
                 'wrapper',
+                'video',
                 'gallery-carousel',
                 'gallery-single-images',
                 'form',

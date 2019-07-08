@@ -9,8 +9,5 @@ services:
     Moonshiner\BrigthenBundle\EventListener\Core\RequestListener:
         tags:
             - { name: kernel.event_subscriber }
-    Moonshiner\BrigthenBundle\EventListener\MailListener:
-        tags:
-            - { name: kernel.event_subscriber }
 
    
