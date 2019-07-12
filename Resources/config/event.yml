@@ -1,0 +1,13 @@
+services:
+
+    _defaults:
+        autowire: true
+        autoconfigure: true
+        public: false
+
+    # core event: request
+    Moonshiner\BrigthenBundle\EventListener\Core\RequestListener:
+        tags:
+            - { name: kernel.event_subscriber }
+
+   

@@ -57,6 +57,8 @@ $id = 'areaBlock';
                 'gallery-carousel',
                 'wysiwyg',
                 'highlight',
+                'video',
+                'form',
                 'relatable',
                 'hero',
                 'image',
