@@ -158,7 +158,7 @@ trait MakesHttpRequests
      * @param  array  $headers
      * @return \Tests\TestResponse
      */
-    public function get($uri, array $data = [], array $headers = [])
+    public function httpGet($uri, array $data = [], array $headers = [])
     {
         $server = $this->transformHeadersToServerVars($headers);
 

@@ -1,7 +1,7 @@
 security:
     providers:
         customer_provider:
-            id: Moonshiner\BrigthenBundle\Security\User\UserProvider
+            id: Moonshiner\BrigthenBundle\Security\User\CustomerProvider
     firewalls:
         gettoken:
             pattern: ^/api/user/login$
@@ -20,8 +20,9 @@ security:
             stateless: true
             anonymous: true
         api:
-            pattern: ^/api
+            pattern: ^/api/me
             stateless: true
+            provider: customer_provider
             guard:
                 authenticators:
                     - lexik_jwt_authentication.jwt_token_authenticator
