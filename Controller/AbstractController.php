@@ -24,8 +24,10 @@ abstract class AbstractController extends FrontendController
     public function onKernelController(FilterControllerEvent $event)
     {
         $request = $event->getRequest();
-        if ($locale = $event->getRequest()->attributes->get('_locale')) {
+        $locale = $request->get('locale') ? $request->get('locale') : $request->attributes->get('_locale');
+        if ($locale) {
             $request->getSession()->set('_locale', $locale);
+            $request->setLocale($locale);
         } else {
             // if no explicit locale has been set on this request, use one from the session
             $request->setLocale($request->getSession()->get('_locale', 'en'));
