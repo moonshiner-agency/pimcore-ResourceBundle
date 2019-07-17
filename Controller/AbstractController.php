@@ -23,9 +23,16 @@ abstract class AbstractController extends FrontendController
      */
     public function onKernelController(FilterControllerEvent $event)
     {
+        $request = $event->getRequest();
+        if ($locale = $event->getRequest()->attributes->get('_locale')) {
+            $request->getSession()->set('_locale', $locale);
+        } else {
+            // if no explicit locale has been set on this request, use one from the session
+            $request->setLocale($request->getSession()->get('_locale', 'en'));
+        }
         // enable view auto-rendering
-        $this->setViewAutoRender($event->getRequest(), true, 'php');
+        $this->setViewAutoRender($request, true, 'php');
         //get first two characters of locale for language
-        $this->view->language = substr($event->getRequest()->getLocale(), 0, 2);
+        $this->view->language = substr($request->getLocale(), 0, 2);
     }
 }
