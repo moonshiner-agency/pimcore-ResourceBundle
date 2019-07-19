@@ -18,21 +18,10 @@
  * @var \Pimcore\Templating\PhpEngine $view
  * @var \Pimcore\Templating\GlobalVariables $app
  */
+use Moonshiner\BrigthenBundle\JsonResources\ImageResource;
 ?>
-
-<?php
-$block = $this->block('gallery');
-
-if (!$this->editmode) {
-    $items = [];
-    while ($block->loop()) {
-        $items[] = $this->image('image')->getData();
-    }
-    $this->slots()->components[] = [
-        'type' => 'CmsGallery',
-        'items' => $items
-    ];
-} else {
+<?php $block = $this->block('gallery', ['default' => 1]); ?>
+<?php if ($this->editmode) {
     ?>
     <section class="area-gallery-single-images">
         <div class="cms-component-type">Gallery (Single)</div>
@@ -40,13 +29,21 @@ if (!$this->editmode) {
             <?php
             while ($block->loop()) { ?>
                 <div class="col-md-3 col-xs-6">
-                    <?= $this->image('image', [
-                        'thumbnail' => 'galleryThumbnail'
-                    ]); ?>
+                    <?= $this->image('image'); ?>
                 </div>
             <?php } ?>
         </div>
 
     </section>
+    <?php
+} else {
+    $items = [];
+    while ($block->loop()) {
+        $items[] = (new ImageResource($this->image('image')->getImage()))->toArray();
+    }
 
-<?php } ?>
+    $this->slots()->components[] = [
+        'type' => 'CmsSlider',
+        'items' => $items
+    ];
+} ?>
