@@ -88,7 +88,7 @@ class Navigation
     protected function getUri($uri)
     {
         $lang = $this->request->getCurrentRequest()->getLocale();
-        $search = $this->siteRoot.$lang;
+        $search = $this->siteRoot;
         return $search === '' ? $uri : array_reverse(explode($search, $uri, 2))[0];
     }
 }
