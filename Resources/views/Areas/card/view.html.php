@@ -123,10 +123,10 @@ use Moonshiner\BrigthenBundle\Services\Resource;
         }
 
         if ($block->getCount() <= 1) {
-            $this->slots()->components[] = [
-                'type' => 'CmsCard',
-                'data' => ($data[0] ? $data[0] : $data)
-            ];
+            $this->slots()->components[] =  array_merge([
+                    'type' => 'CmsCard',
+            ], isset($data[0] ) ? $data[0] : []);
+
         } else {
             $this->slots()->components[] = [
                 'type' => 'CmsCardList',
