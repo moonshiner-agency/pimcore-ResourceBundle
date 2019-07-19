@@ -39,7 +39,9 @@ use Moonshiner\BrigthenBundle\JsonResources\ImageResource;
 } else {
     $items = [];
     while ($block->loop()) {
-        $items[] = (new ImageResource($this->image('image')->getImage()))->toArray();
+        if ($image = $this->image('image')->getImage() ) {
+            $items[] = (new ImageResource($image))->toArray();
+        }
     }
 
     $this->slots()->components[] = [
