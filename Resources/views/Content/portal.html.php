@@ -29,6 +29,7 @@ $this->extend('layout.html.php');
                 'wrapper',
                 'video',
                 'gallery-carousel',
+                'gallery-grid',
                 'gallery-single-images',
                 'gallery-social-media',
                 'form',
