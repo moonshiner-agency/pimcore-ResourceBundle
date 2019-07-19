@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Pimcore
  *
@@ -29,11 +30,13 @@ $this->extend('layout.html.php');
                 'video',
                 'gallery-carousel',
                 'gallery-single-images',
+                'gallery-social-media',
                 'form',
                 'wysiwyg',
                 'highlight',
                 'contact-card',
                 'relatable',
+                'relatable-filtered',
                 'hero',
                 'image',
                 'horizontal-line',
