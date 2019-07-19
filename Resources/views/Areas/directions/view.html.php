@@ -33,8 +33,6 @@
     <?php
 
 } else {
-    $image = $this->image('image');
-
     $this->slots()->components[] = [
         'type' => 'directions',
         'text' => $this->wysiwyg('text')->getData(),

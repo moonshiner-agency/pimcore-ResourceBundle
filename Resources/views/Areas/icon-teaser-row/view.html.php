@@ -17,6 +17,9 @@
  * @var \Pimcore\Templating\PhpEngine $view
  * @var \Pimcore\Templating\GlobalVariables $app
  */
+use Moonshiner\BrigthenBundle\JsonResources\ImageResource;
+use Moonshiner\BrigthenBundle\JsonResources\TagResource;
+
 ?>
 
 <?php $block = $this->block('iconTeaserBlock', ['default' => 1]); ?>
@@ -27,22 +30,25 @@
         while ($block->loop()) {
             $tagBlock = $this->block('iconTeaserTagBlock'.$block->getCurrent(), ['default' => 1]);
 
-            $tags = [];
-            while ($tagBlock->loop()) {
-                $tags[] = [
-                    'text' => $this->input('tag_text')->getData(),
-                    'icon' => $this->select('tag_icon')->getData()
-                ];
+            if ($tagBlock->getCount() > 0) {
+                $tags = [];
+                while ($tagBlock->loop()) {
+                    $tag = $this->relation('tag');
+                    if (!$tag->isEmpty()) {
+                        $tags[] = (new TagResource($tag->getElement()))->toArray();
+                    }
+                }
+            } else {
+                $tags = null;
             }
 
-            $image = $this->image('image');
             $data[] = [
                 'title' => $this->input('title')->getData(),
-                'image' => $image->getThumbnail('galleryLightbox') !== '' ? (\Pimcore\Tool::getHostUrl() . $image->getThumbnail('galleryLightbox')->getPath()) : null,
                 'content' => $this->textarea('text')->getData(),
                 'number' => $this->input('number')->getData(),
                 'isSmall' => $this->checkbox('isSmall')->isChecked(),
                 'tags' => $tags,
+                'image' => (new ImageResource($this->image('image')))->toArray(),
             ];
             $tagID++;
         }
@@ -95,18 +101,16 @@
                     <div class="mb-20">
                         <label>Tags:</label><br />
 
-                        <?php $tagBlock = $this->block('iconTeaserTagBlock'.$block->getCurrent()); ?>
+                        <?php $tagBlock = $this->block('iconTeaserTagBlock' . $block->getCurrent()); ?>
                         <?php while ($tagBlock->loop()) { ?>
-                            <p>Tag <?= $tagBlock->getCurrent()+1 ?>:</p>
                             <div class="mb-20">
-                                <p>Tag title:</p>
-                                <?= $this->input('tag_text', ['placeholder' => 'Tag title']) ?>
-                            </div>
-                            <div class="mb-20">
-                                <p>Tag icon:</p>
-                                <?= $this->select('tag_icon', [
-                                    'store' => ['car', 'pinLocation', 'people', 'area'],
-                                    'width' => 150
+                                <p>Tag <?= $tagBlock->getCurrent() + 1 ?>:</p>
+                                <?= $this->relation('tag', [
+                                    'types' => ['object'],
+                                    'subtypes' => [
+                                        'object' => ['object']
+                                    ],
+                                    'classes' => ['Tag'],
                                 ]); ?>
                             </div>
                         <?php } ?>

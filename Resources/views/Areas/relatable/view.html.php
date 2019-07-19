@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Pimcore
  *
@@ -19,25 +20,44 @@
  */
 ?>
 
-    <?php
-    if (!$this->editmode) {
-        $test = $this->relations('objectPaths');
-        $this->slots()->components[] = ['type' => 'relatable', 'data' => array_map(function ($item) {
-            return [
-                'id' => $item->getId(),
-                'name' => $item->getName(),
-                'summary' => $item->getSummary(),
-                'text' => $item->getText(),
-                'salary' => $item->getSalary()
-            ];
-        }, $test->getElements())];
-    } else {
-        ?>
 
-    <?= $this->relations('objectPaths'); ?>
+<?php
+if (!$this->editmode) {
+    $relations = $this->relations('objects');
 
-        <?php
-    }?>
+    $this->slots()->components[] = [
+        'type' => 'relatable',
+        'data' => array_map(function ($item) {
+            $shortClassName = (new \ReflectionClass($item))->getShortName();
+            $resourceClassName = '\AppBundle\JsonResources\\' . $shortClassName;
+            if (class_exists($resourceClassName)) {
+                $data = (new $resourceClassName($item))->toArray();
+            } else {
+                $data = [];
+                foreach ($item->getClass()->getFieldDefinitions() as $fieldDefinition) {
+                    $data[$fieldDefinition->getName()] = $item->getValueForFieldName($fieldDefinition->getName());
+                }
+            }
 
+            return $data;
+        }, $relations->getElements())
+    ];
+} else {
+    ?>
 
+    <section>
+        <div class="cms-component-type">Data Objects</div>
+        <div class="row">
+            <div class="col-md-6">
+                <?= $this->relations('objects', [
+                    'types' => ['object'],
+                    'subtypes' => [
+                        'object' => ['object']
+                    ]
+                ]); ?>
+            </div>
+        </div>
+    </section>
 
+<?php
+} ?>

@@ -24,11 +24,15 @@
     ?>
     <section class="col-md-8 mb-20">
         <div class="cms-component-type">Hero</div>
-        <div><?= $this->image('image') ?></div>
-        <h1><?= $this->input('title', ['placeholder' => 'Title']) ?></h1>
-        <p><?= $this->input('subline', ['placeholder' => 'Subline']) ?></p>
-        <p><?= $this->wysiwyg('text', ['placeholder' => 'Text']) ?></p>
-        Link: <?= $this->link('link', ['class' => 'btn btn-primary']) ?>
+        <div> <label class="text-info">Image:</label><br /><?= $this->image('image') ?></div>
+        <hr>
+        <div> <label class="text-info">Title:</label><h1><?= $this->input('title', ['placeholder' => 'Title']) ?></h1></div>
+        <hr>
+        <div><label class="text-info">Subline:</label><p><?= $this->input('subline', ['placeholder' => 'Subline']) ?></p></h1> </div>
+        <hr>
+        <div><label class="text-info">Hero text:</label><p><?= $this->wysiwyg('text', ['placeholder' => 'Text']) ?></p></h1></div>
+        <hr>
+        <div><label class="text-info">Button: </label><?= $this->link('link', ['class' => 'btn-info btn-link']) ?></div>
     </section>
     <?php
 } else {
@@ -39,13 +43,8 @@
             'type' => 'CmsHero',
             'title' => $this->input('title')->getData(),
             'subline' => $this->input('subline')->getData(),
-            'image' => $image->getThumbnail('galleryLightbox') !== '' ? \Pimcore\Tool::getHostUrl() . $image->getThumbnail('galleryLightbox')->getPath() : null,
+            'image' => $this->image('image')->getImage() ? (new ImageResource($this->image('image')->getImage()))->toArray() : null,
             'text' => $this->wysiwyg('text')->getData(),
-            'link' => $this->link('link', ['class' => 'btn btn-default'])->getData()
+            'link' => $this->link('link')->getData()
         ];
     }?>
-
-
-
-
-

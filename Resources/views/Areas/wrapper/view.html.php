@@ -54,12 +54,17 @@ $id = 'areaBlock';
         <div class="wrapper-subsection-<?= $this->select('layout')->getData() ?>">
         <?= $this->areablock($id, [
             'allowed' => [
+                'wrapper',
+                'video',
                 'gallery-carousel',
+                'gallery-single-images',
+                'gallery-social-media',
+                'form',
                 'wysiwyg',
                 'highlight',
-                'video',
-                'form',
+                'contact-card',
                 'relatable',
+                'relatable-filtered',
                 'hero',
                 'image',
                 'horizontal-line',
@@ -68,7 +73,6 @@ $id = 'areaBlock';
                 'card',
                 'section-title',
                 'testimonial',
-                'wrapper',
                 'directions',
             ]
         ]) ?>
@@ -133,6 +137,7 @@ $id = 'areaBlock';
                     'wysiwyg',
                     'highlight',
                     'relatable',
+                    'relatable-filtered',
                     'hero',
                     'image',
                     'horizontal-line',

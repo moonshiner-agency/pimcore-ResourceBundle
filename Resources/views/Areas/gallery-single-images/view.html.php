@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Pimcore
  *
@@ -19,28 +20,33 @@
  */
 ?>
 
-<section class="area-gallery-single-images">
-    <div class="cms-component-type">Gallery (Single)</div>
-    <div class="row">
-        <?php
-        $block = $this->block('gallery');
+<?php
+$block = $this->block('gallery');
 
-        while ($block->loop()) { ?>
-            <div class="col-md-3 col-xs-6">
-                <?php if (!$this->editmode) { ?>
-                    <a href="<?= $this->image('image')->getThumbnail('galleryLightbox'); ?>" class="thumbnail">
-                <?php } ?>
-
+if (!$this->editmode) {
+    $items = [];
+    while ($block->loop()) {
+        $items[] = $this->image('image')->getData();
+    }
+    $this->slots()->components[] = [
+        'type' => 'CmsGallery',
+        'items' => $items
+    ];
+} else {
+    ?>
+    <section class="area-gallery-single-images">
+        <div class="cms-component-type">Gallery (Single)</div>
+        <div class="row">
+            <?php
+            while ($block->loop()) { ?>
+                <div class="col-md-3 col-xs-6">
                     <?= $this->image('image', [
                         'thumbnail' => 'galleryThumbnail'
                     ]); ?>
+                </div>
+            <?php } ?>
+        </div>
 
-                <?php if (!$this->editmode) { ?>
-                    </a>
-                <?php } ?>
-            </div>
-        <?php } ?>
-    </div>
+    </section>
 
-</section>
-
+<?php } ?>

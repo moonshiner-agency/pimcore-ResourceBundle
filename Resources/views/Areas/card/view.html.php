@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Pimcore
  *
@@ -17,77 +18,88 @@
  * @var \Pimcore\Templating\PhpEngine $view
  * @var \Pimcore\Templating\GlobalVariables $app
  */
+use Moonshiner\BrigthenBundle\JsonResources\ImageResource;
+use Moonshiner\BrigthenBundle\JsonResources\TagResource;
+use Moonshiner\BrigthenBundle\Services\Resource;
+
 ?>
 
 <?php $block = $this->block('cardBlock', ['default' => 1]); ?>
 
 <?php if ($this->editmode) {
     ?>
-    <section>
+    <section class="col-md-8 mb-20">
         <div class="cms-component-type">Card</div>
-        <div class="row">
-            <?php if ($block->getCount() > 1) { ?>
-                <div class="col-sm-4">
-                    <div class="mb-20">
+
+            <?php if ($block->getCount() > 1) {
+        ?>
+                <div >
+                    <div class="mb-20 alert alert-info">
+
                         <label>List options:</label><br />
-                        <p>Scrolling behaviour:</p>
-                        <?= $this->select('variant', [
-                            'store' => ['scroll', 'col2', 'col3'],
-                            'width' => 300,
-                            'default' => 'col2',
-                        ])->setDataFromResource('col2'); ?>
+                        <p>Scrolling behaviour:
+                            <?= $this->select('variant', [
+                                'store' => ['scroll', 'col2', 'col3'],
+                                'width' => 100,
+                                'default' => 'col2',
+                            ])->setDataFromResource('col2'); ?>
+                        </p>
                     </div>
                 </div>
-            <?php } ?>
+            <?php
+    } ?>
 
-            <?php while ($block->loop()) { ?>
-                <div class="col-md-4 mb-20">
+            <?php while ($block->loop()) {
+        ?>
+                <div class="mb-20">
                     <div class="mb-20">
-                        <label>Image:</label><br />
-                        <?= $this->image('image') ?>
+                        <label class="text-info">Image:</label><br />
+                        <div class="col-md-8">
+                            <?= $this->image('image'); ?>
+                        </div>
                     </div>
+                    <hr>
                     <div class="mb-20">
-                        <label>Headline:</label><br />
+                        <label class="text-info">Headline:</label><br />
                         <h3 class="noMarginTop"><?= $this->input('title', ['placeholder' => 'Headline']) ?></h3>
                     </div>
+                    <hr>
                     <div class="mb-20">
-                        <label>Subline:</label><br />
-                       <?= $this->input('subtitle', ['placeholder' => 'Subline']) ?>
+                        <label class="text-info">Subline:</label><br />
+                        <?= $this->input('subtitle', ['placeholder' => 'Subline']) ?>
                     </div>
+                    <hr>
                     <div class="mb-20">
-                        <label>Card text:</label><br />
+                        <label class="text-info">Card text:</label><br />
                         <?= $this->textarea('text', ['placeholder' => 'Card text', 'height' => 150]) ?>
                     </div>
+                    <hr>
                     <div class="mb-20">
-                        <label>Button:</label><br />
-                        <?= $this->link('link', ['class' => 'btn btn-primary btn-lg']) ?>
+                        <label class="text-info">Button:</label><br />
+                        <?= $this->link('link', ['class' => 'btn-info btn-link']) ?>
                     </div>
+                    <hr>
                     <div class="mb-20">
-                        <label>Card has border:</label><br />
-                        <?= $this->checkbox('hasBorder') ?> has border
+                        <label class="text-info">Card has border:</label>
+                        <?= $this->checkbox('hasBorder') ?>
+                        <br />
                     </div>
+                    <hr>
                     <div class="mb-20">
-                        <label>Tags:</label><br />
+                        <?= $this->relations('tag', [
+                            'title' => 'Tags',
+                            'types' => ['object'],
+                            'subtypes' => [
+                                'object' => ['object']
+                            ],
+                            'classes' => ['Tag'],
+                        ]); ?>
 
-                        <?php $tagBlock = $this->block('iconTeaserTagBlock'.$block->getCurrent()); ?>
-                        <?php while ($tagBlock->loop()) { ?>
-                            <p>Tag <?= $tagBlock->getCurrent()+1 ?>:</p>
-                            <div class="mb-20">
-                                <p>Tag title:</p>
-                                <?= $this->input('tag_text', ['placeholder' => 'Tag title']) ?>
-                            </div>
-                            <div class="mb-20">
-                                <p>Tag icon:</p>
-                                <?= $this->select('tag_icon', [
-                                    'store' => ['car', 'pinLocation', 'people', 'area'],
-                                    'width' => 150
-                                ]); ?>
-                            </div>
-                        <?php } ?>
                     </div>
                 </div>
-            <?php } ?>
-        </div>
+            <?php
+    } ?>
+
     </section>
 
     <style>
@@ -97,40 +109,29 @@
     </style>
 <?php
 } else {
-    $data = [];
-    while ($block->loop()) {
-        $tagBlock = $this->block('cardTagBlock'.$block->getCurrent(), ['default' => 1]);
-
-        $tags = [];
-        while ($tagBlock->loop()) {
-            $tags[] = [
-                'text' => $this->input('tag_text')->getData(),
-                'icon' => $this->select('tag_icon')->getData()
+        $data = [];
+        while ($block->loop()) {
+            $data[] = [
+                'title' => $this->input('title')->getData(),
+                'content' => $this->textarea('text')->getData(),
+                'link' => $this->link('link')->getData(),
+                'hasBorder' => $this->checkbox('hasBorder')->getData(),
+                'subline' => $this->input('subtitle')->getData(),
+                'tags' => TagResource::collection($this->relations('tag')->getElements(), Resource::NESTED),
+                'image' => $this->image('image')->getImage() ? (new ImageResource($this->image('image')->getImage()))->toArray() : null
             ];
         }
 
-        $image = $this->image('image');
-        $data[] = [
-            'title' => $this->input('title')->getData(),
-            'content' => $this->textarea('text')->getData(),
-            'image' => $image->getThumbnail('galleryLightbox') !== '' ? \Pimcore\Tool::getHostUrl() . $image->getThumbnail('galleryLightbox')->getPath() : null,
-            'link' => $this->link('link', ['class' => 'btn btn-default'])->getData(),
-            'hasBorder' => $this->checkbox('hasBorder')->getData(),
-            'subline' => $this->input('subtitle')->getData(),
-            'tags' => $tags,
-        ];
-    }
-
-    if ($block->getCount() <= 1) {
-        $this->slots()->components[] = [
-            'type' => 'CmsCard',
-            'data' => ($data[0] ? $data[0] : $data)
-        ];
-    } else {
-        $this->slots()->components[] = [
-            'type' => 'CmsCardList',
-            'variant' => $this->select('variant')->getData(),
-            'items' => $data
-        ];
-    }
-} ?>
+        if ($block->getCount() <= 1) {
+            $this->slots()->components[] = [
+                'type' => 'CmsCard',
+                'data' => ($data[0] ? $data[0] : $data)
+            ];
+        } else {
+            $this->slots()->components[] = [
+                'type' => 'CmsCardList',
+                'variant' => $this->select('variant')->getData(),
+                'items' => $data
+            ];
+        }
+    } ?>
