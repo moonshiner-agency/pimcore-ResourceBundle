@@ -42,7 +42,7 @@ use Moonshiner\BrigthenBundle\Services\Resource;
                                 'store' => ['scroll', 'col2', 'col3'],
                                 'width' => 100,
                                 'default' => 'col2',
-                            ])->setDataFromResource('col2'); ?>
+                            ]) ?>
                         </p>
                     </div>
                 </div>
@@ -130,7 +130,7 @@ use Moonshiner\BrigthenBundle\Services\Resource;
         } else {
             $this->slots()->components[] = [
                 'type' => 'CmsCardList',
-                'variant' => $this->select('variant')->getData(),
+                'variant' => $this->select('variant')->getData() ? $this->select('variant')->getData() : 'col2',
                 'items' => $data
             ];
         }
