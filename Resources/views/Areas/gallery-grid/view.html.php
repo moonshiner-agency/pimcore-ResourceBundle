@@ -22,11 +22,16 @@ use Moonshiner\BrigthenBundle\JsonResources\ImageResource;
 
 if ($this->editmode) { ?>
     <section class="col-md-8 mb-20">
-        <div class="cms-component-type">Card</div>
+        <div class="cms-component-type">Gallery grid</div>
 
         <div class="mb-20">
             <label class="text-info">Title:</label><br />
             <?= $this->input('title', ['placeholder' => 'Title']) ?>
+        </div>
+
+        <div class="mb-20">
+            <label class="text-info">Text:</label><br />
+            <?= $this->textarea('text', ['placeholder' => 'Text', 'height' => 150]) ?>
         </div>
 
         <div class="mb-20">
@@ -72,13 +77,13 @@ if ($this->editmode) { ?>
             </div>
         </div>
 
+        <style>
+            h3.noMarginTop {
+                margin-top: 0;
+            }
+        </style>
     </section>
 
-    <style>
-        h3.noMarginTop {
-            margin-top: 0;
-        }
-    </style>
 <?php
 } else {
         $data =
@@ -103,6 +108,7 @@ if ($this->editmode) { ?>
 
         $this->slots()->components[] = [
             'title' =>  $this->input('title')->getData(),
+            'text' =>  $this->textarea('text')->getData(),
             'type' => 'CmsGalleryGrid',
             'items' => $data
         ];
