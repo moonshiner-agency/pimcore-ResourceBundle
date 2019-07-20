@@ -31,7 +31,9 @@ if (!$this->editmode) {
             $shortClassName = (new \ReflectionClass($item))->getShortName();
             $resourceClassName = '\AppBundle\JsonResources\\' . $shortClassName;
             if (class_exists($resourceClassName)) {
-                $data = (new $resourceClassName($item))->toArray();
+                $data = array_merge( (new $resourceClassName($item))->toArray(), [
+                    'type' => $shortClassName
+                ] );
             } else {
                 $data = [];
                 foreach ($item->getClass()->getFieldDefinitions() as $fieldDefinition) {
