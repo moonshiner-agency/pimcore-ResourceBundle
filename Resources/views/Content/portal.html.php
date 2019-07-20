@@ -26,6 +26,7 @@ $this->extend('layout.html.php');
         'content',
         [
             'allowed' => [
+                'api',
                 'wrapper',
                 'video',
                 'gallery-carousel',
