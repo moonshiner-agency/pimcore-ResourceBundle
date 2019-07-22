@@ -10,7 +10,7 @@ class TagResource extends Resource
     {
         return [
             'text' => $this->resource->getTitle(),
-            'icon' => $this->resource->getIcon() ? \Pimcore\Tool::getHostUrl().$this->resource->getIcon()->getThumbnail('icon')->getPath() : null
+            'icon' => $this->resource->getIcon()
         ];
     }
 }
