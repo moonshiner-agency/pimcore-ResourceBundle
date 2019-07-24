@@ -15,6 +15,9 @@ class TagResource extends Resource
             ];
         }
 
-        return;
+        return  [
+            'text' => '',
+            'icon' => ''
+        ];
     }
 }
