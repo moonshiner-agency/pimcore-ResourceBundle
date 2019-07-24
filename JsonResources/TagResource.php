@@ -15,6 +15,6 @@ class TagResource extends Resource
             ];
         }
 
-        return [];
+        return;
     }
 }
