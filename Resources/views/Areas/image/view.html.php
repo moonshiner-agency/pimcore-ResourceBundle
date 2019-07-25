@@ -1,4 +1,7 @@
 <?php
+
+use Moonshiner\BrigthenBundle\Services\Service\SystemSettings;
+
 /**
  * Pimcore
  *
@@ -24,7 +27,7 @@ if (!$this->editmode) {
     $image = $this->image('image');
     $this->slots()->components[] = [
         'type' => 'image',
-        'content' => \Pimcore\Tool::getHostUrl() . $image->getThumbnail('galleryLightbox')->getPath(),
+        'content' => SystemSettings::getHostUrl() . $image->getThumbnail('galleryLightbox')->getPath(),
         'hotspots' => $image->getHotSpots(),
         'name' => $image->getName()
     ];
@@ -34,12 +37,11 @@ if (!$this->editmode) {
         <div class="cms-component-type">Image</div>
         <div class="row">
             <div class="col-sm-4 mb-20">
-            <?= $this->image('image', [
-                'thumbnail' => 'content'
-            ]); ?>
+                <?= $this->image('image', [
+                    'thumbnail' => 'content'
+                ]); ?>
             </div>
         </div>
     </section>
 <?php
 } ?>
-
