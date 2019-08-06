@@ -75,6 +75,11 @@ trait InteractsWithDatabase
         static::$classesBuilded = false;
     }
 
+    public static function getConnection()
+    {
+        return \Pimcore::getContainer()->get('database_connection');
+    }
+
      /**
      * Build the class definitions
      *
@@ -246,24 +251,6 @@ trait InteractsWithDatabase
         // $this->assertThat($table, $constraint);
 
         // return $this;
-    }
-
-
-
-    /**
-     * Get the database connection.
-     *
-     * @param  string|null  $connection
-     * @return \Illuminate\Database\Connection
-     */
-    protected function getConnection($connection = null)
-    {
-        // $connection = \Pimcore::getContainer()->get('database_connection');
-        // $database = $this->app->make('db');
-
-        // $connection = $connection ?: $database->getDefaultConnection();
-
-        // return $database->connection($connection);
     }
 
     /**

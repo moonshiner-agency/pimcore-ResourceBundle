@@ -7,7 +7,6 @@ use Moonshiner\BrigthenBundle\Concerns\MakesHttpRequests;
 use Moonshiner\BrigthenBundle\Concerns\InteractsWithDatabase;
 use Moonshiner\BrigthenBundle\Concerns\InteractsWithConsole;
 use Moonshiner\BrigthenBundle\Concerns\InteractsWithFactory;
-use Moonshiner\BrigthenBundle\Concerns\InteractsWithKernel;
 
 abstract class TestCase extends WebTestCase
 {
@@ -16,18 +15,19 @@ abstract class TestCase extends WebTestCase
     use InteractsWithDatabase;
     use InteractsWithFactory;
 
-     /**
-     * Setup the test environment.
-     *
-     * @return void
-     */
+    /**
+    * Setup the test environment.
+    *
+    * @return void
+    */
     protected function setUp()
     {
-        \Pimcore::setKernel(self::createKernel());
-        $this->kernel = static::bootKernel();
-        InteractsWithDatabase::refresh();
-        InteractsWithDatabase::setupPimcore( $db = 'test' );
-        $this->classesRebuild();
         $this->setupFactories();
+    }
+
+    public static function setUpBeforeClass()/* The :void return type declaration that should be here would cause a BC issue */
+    {
+        \Pimcore::setKernel(self::createKernel());
+        static::bootKernel();
     }
 }

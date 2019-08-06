@@ -2,16 +2,11 @@
 
 namespace  Moonshiner\BrigthenBundle\Command;
 
-use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
 use Symfony\Component\Console\Input\InputInterface;
-use Moonshiner\BrigthenBundle\Concerns\InteractsWithConsole;
-use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
-use Moonshiner\BrigthenBundle\Concerns\InteractsWithFactory;
+use Moonshiner\BrigthenBundle\Concerns\InteractsWithConsole;
 use Moonshiner\BrigthenBundle\Concerns\InteractsWithDatabase;
-use Symfony\Component\Console\Input\ArrayInput;
-
-use Pimcore\Model\Document\Page;
+use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
 
 class SetupTestCommand extends ContainerAwareCommand
 {
