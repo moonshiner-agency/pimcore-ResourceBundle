@@ -28,6 +28,5 @@ abstract class TestCase extends WebTestCase
     public static function setUpBeforeClass()/* The :void return type declaration that should be here would cause a BC issue */
     {
         \Pimcore::setKernel(self::createKernel());
-        static::bootKernel();
     }
 }
