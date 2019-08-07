@@ -17,3 +17,8 @@ services:
             - { name: liform.transformer, form_type: compound }
     # Moonshiner\BrigthenBundle\Service\Factory:
     #     true
+
+    Moonshiner\BrigthenBundle\Command\:
+        resource: '../../Command'
+        public: true
+        tags: ['console.command']
