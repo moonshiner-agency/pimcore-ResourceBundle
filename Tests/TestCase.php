@@ -22,6 +22,7 @@ abstract class TestCase extends WebTestCase
     */
     protected function setUp()
     {
+        static::bootKernel();
         $this->setupFactories();
     }
 
