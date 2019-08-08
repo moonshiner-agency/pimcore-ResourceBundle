@@ -1,28 +1,28 @@
-# security:
-#     providers:
-#         customer_provider:
-#             id: Moonshiner\BrigthenBundle\Security\User\CustomerProvider
-#     firewalls:
-#         gettoken:
-#             pattern: ^/api/user/login$
-#             stateless: true
-#             provider: customer_provider
-#             gfreeau_get_jwt:
-#                 # this is the default config
-#                 username_parameter: username
-#                 password_parameter: password
-#                 authentication_provider: security.authentication.provider.dao
-#                 user_checker: security.user_checker
-#                 success_handler: lexik_jwt_authentication.handler.authentication_success
-#                 failure_handler: lexik_jwt_authentication.handler.authentication_failure
-#         pages:
-#             pattern: ^/api/pages
-#             stateless: true
-#             anonymous: true
-#         api:
-#             pattern: ^/api/me
-#             stateless: true
-#             provider: customer_provider
-#             guard:
-#                 authenticators:
-#                     - lexik_jwt_authentication.jwt_token_authenticator
+security:
+    providers:
+        customer_provider:
+            id: Moonshiner\BrigthenBundle\Security\User\CustomerProvider
+    firewalls:
+        gettoken:
+            pattern: ^/api/user/login$
+            stateless: true
+            provider: customer_provider
+            gfreeau_get_jwt:
+                # this is the default config
+                username_parameter: username
+                password_parameter: password
+                authentication_provider: security.authentication.provider.dao
+                user_checker: security.user_checker
+                success_handler: lexik_jwt_authentication.handler.authentication_success
+                failure_handler: lexik_jwt_authentication.handler.authentication_failure
+        pages:
+            pattern: ^/api/pages
+            stateless: true
+            anonymous: true
+        api:
+            pattern: ^/api/me
+            stateless: true
+            provider: customer_provider
+            guard:
+                authenticators:
+                    - lexik_jwt_authentication.jwt_token_authenticator
