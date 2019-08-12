@@ -51,7 +51,7 @@ $id = 'areaBlock';
         <br>
          <strong>Width</strong><br>
         <?= $this->checkbox('fullWidth', ['label' => 'Full Width?']); ?>
-        <div class="wrapper-subsection-<?= $this->select('layout')->getData() ?>">
+        <div class="wrapper-subsection">
         <?= $this->areablock($id, [
             'allowed' => [
                 'wrapper',
@@ -77,59 +77,23 @@ $id = 'areaBlock';
                 'link',
                 'call-to-action',
                 'wysiwyg',
+                'step-list',
+                'info-card',
             ]
         ]) ?>
-        <style>
-        .wrapper-subsection-2x2 .pimcore_tag_areablock {
-                display: grid;
-                grid-gap: 20px;
-                grid-template-columns: 50% 50%;
-            }
-            .wrapper-subsection-2x2 .pimcore_tag_areablock .pimcore_area_entry section {
-    height: 100%;
-    margin: 0;
-}
-
-.wrapper-subsection-2x2-1 .pimcore_tag_areablock {
-                grid-gap: 20px;
-  display: grid;
-  align-items: center;
-  grid-template-rows: auto 1fr auto;  /* key rule */
-  grid-template-columns: 50% 50%;
-  grid-template-areas:
-    'a b'
-    'c c';
-
-}
-.wrapper-subsection-2x2-1 .pimcore_area_entry:first-of-type section{
-    margin: 0; 
-    height: 100%;
-
-}
-.wrapper-subsection-2x2-1 .pimcore_area_entry:first-of-type {
-    grid-area: a;
-    height: 100%; 
-  }
-  .wrapper-subsection-2x2-1 .pimcore_area_entry:nth-of-type(2) section{
-    margin: 0; 
-    height: 100%;
-      }
-  .wrapper-subsection-2x2-1 .pimcore_area_entry:nth-of-type(2) {
-    grid-area: b;
-    height: 100%; 
-  }
-  .wrapper-subsection-2x2-1 .pimcore_area_entry:nth-of-type(3) section{
-    margin: 0; 
-    height: 100%;
-      }
-  .wrapper-subsection-2x2-1 .pimcore_area_entry:nth-of-type(3) {
-    margin: 0; 
-    grid-area: c;
-    height: 100%; 
-  }
-        </style>
-        </div>
-    </section>
+    </div>
+</section>
+<style>
+    .wrapper-subsection .pimcore_tag_areablock {
+        display: grid;
+        grid-gap: 5px;
+        grid-template-columns: 50% 50%;
+    }
+    .wrapper-subsection .pimcore_tag_areablock .pimcore_area_entry section {
+        height: 100%;
+        margin: 0;
+    }
+</style>
 <?php
 } else {
             $areaBlock = $this->areablock($id, [
@@ -156,7 +120,6 @@ $id = 'areaBlock';
                     'call-to-action',
                     'wysiwyg',
                     'step-list',
-                    'info-card',
                 ]
             ])->start();
 
