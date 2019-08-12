@@ -44,6 +44,7 @@ $this->extend('layout.html.php');
                 'link',
                 'call-to-action',
                 'wysiwyg',
+                'video',
             ]
         ]
     ) ?>

@@ -78,7 +78,7 @@ $id = 'areaBlock';
                 'call-to-action',
                 'wysiwyg',
                 'step-list',
-                'info-card',
+                'video',
             ]
         ]) ?>
     </div>
@@ -119,7 +119,7 @@ $id = 'areaBlock';
                     'link',
                     'call-to-action',
                     'wysiwyg',
-                    'step-list',
+                    'video',
                 ]
             ])->start();
 
