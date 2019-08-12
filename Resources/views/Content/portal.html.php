@@ -23,31 +23,27 @@ $this->extend('layout.html.php');
 ?>
 
     <?= $this->areablock(
-        'content',
-        [
+    'content',
+    [
             'allowed' => [
                 'api',
                 'wrapper',
-                'video',
-                'gallery-carousel',
                 'gallery-grid',
                 'gallery-single-images',
                 'gallery-social-media',
                 'form',
-                'wysiwyg',
-                'highlight',
-                'contact-card',
                 'relatable',
                 'relatable-filtered',
                 'hero',
                 'image',
-                'horizontal-line',
                 'icon-teaser-row',
-                'productteaser',
                 'card',
                 'section-title',
                 'testimonial',
                 'directions',
+                'link',
+                'call-to-action',
+                'wysiwyg',
             ]
         ]
     ) ?>
