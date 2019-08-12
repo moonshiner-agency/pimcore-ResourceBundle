@@ -11,6 +11,7 @@
  * @copyright  Copyright (c) Pimcore GmbH (http://www.pimcore.org)
  * @license    http://www.pimcore.org/license     GPLv3 and PEL
  */
+use Moonshiner\BrigthenBundle\JsonResources\ImageResource;
 
 /**
  * @var \Pimcore\Templating\PhpEngine $this
@@ -30,6 +31,7 @@
              'text' => $this->textarea('text')->getData(),
              'name' => $this->input('name')->getData(),
              'origin' => $this->input('origin')->getData(),
+             'image' => $this->image('image')->getImage() ? (new ImageResource($this->image('image')->getImage()))->toArray() : null
          ];
      }
 
@@ -51,6 +53,10 @@
         <div class="mb-20">
             <?php while ($block->loop()) { ?>
                 <div class="col-md-8">
+                    <div class="mb-20">
+                        <label class="text-info">Image:</label><br />
+                        <?= $this->image('image'); ?>
+                    </div>
                     <div class="mb-20">
                         <label class="text-info">Headline:</label><br />
                         <h3 class="noMarginTop">
