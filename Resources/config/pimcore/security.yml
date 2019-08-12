@@ -1,3 +1,8 @@
+pimcore:
+    security:
+        # the encoder factory as shipped by the CMF
+        encoder_factories:
+            Moonshiner\BrigthenBundle\Security\User\SecureUser: moonshiner.brigthenBundle.security.customer_password_encoder_factory
 security:
     providers:
         customer_provider:
