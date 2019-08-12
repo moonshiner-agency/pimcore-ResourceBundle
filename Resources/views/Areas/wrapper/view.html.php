@@ -74,6 +74,9 @@ $id = 'areaBlock';
                 'section-title',
                 'testimonial',
                 'directions',
+                'link',
+                'call-to-action',
+                'wysiwyg',
             ]
         ]) ?>
         <style>
@@ -149,6 +152,11 @@ $id = 'areaBlock';
                     'testimonial',
                     'wrapper',
                     'directions',
+                    'link',
+                    'call-to-action',
+                    'wysiwyg',
+                    'step-list',
+                    'info-card',
                 ]
             ])->start();
 
