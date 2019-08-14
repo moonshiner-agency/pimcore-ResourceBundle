@@ -28,6 +28,7 @@ if (!$this->editmode) {
     $this->slots()->components[] = [
         'type' => 'image',
         'content' => SystemSettings::getHostUrl() . $image->getThumbnail('galleryLightbox')->getPath(),
+        'markers' => $image->getMarker(),
         'hotspots' => $image->getHotSpots(),
         'name' => $image->getName()
     ];
