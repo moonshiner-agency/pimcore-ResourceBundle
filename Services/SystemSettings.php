@@ -1,7 +1,8 @@
 <?php
 
-
 namespace Moonshiner\BrigthenBundle\Services\Service;
+
+use Pimcore\Logger;
 
 class SystemSettings
 {
@@ -31,6 +32,7 @@ class SystemSettings
             Logger::warn('Couldn\'t determine HTTP Host. No Domain set in "Settings" -> "System" -> "Website" -> "Domain"');
             return '';
         }
+
         return $protocol . '://' . $hostname . $port;
     }
 }
