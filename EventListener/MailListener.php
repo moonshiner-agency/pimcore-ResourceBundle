@@ -90,7 +90,6 @@ class MailListener implements EventSubscriberInterface
         $form = $event->getForm();
         /** @var FormBuilderFormInterface $data */
         $data = $form->getData();
-        xdebug_break();
 
         $formId = $data->getId();
         $formConfiguration = $event->getFormConfiguration();

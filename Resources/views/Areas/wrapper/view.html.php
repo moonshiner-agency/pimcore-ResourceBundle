@@ -74,6 +74,8 @@ $id = 'areaBlock';
                 'section-title',
                 'testimonial',
                 'directions',
+                'form',
+
             ]
         ]) ?>
         <style>
