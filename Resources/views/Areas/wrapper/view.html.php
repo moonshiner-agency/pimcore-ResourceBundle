@@ -33,7 +33,8 @@ $id = 'areaBlock';
             'store' => [
                 ['default', 'Default'],
                 ['primary', 'Primary'],
-                ['secondary', 'Secondary']
+                ['secondary', 'Secondary'],
+                ['highlighted', 'Highlighted'],
             ]
         ]); ?>
         <br>
