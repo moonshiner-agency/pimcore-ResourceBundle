@@ -53,35 +53,7 @@ $id = 'areaBlock';
          <strong>Width</strong><br>
         <?= $this->checkbox('fullWidth', ['label' => 'Full Width?']); ?>
         <div class="wrapper-subsection">
-        <?= $this->areablock($id, [
-            'allowed' => [
-                'wrapper',
-                'video',
-                'gallery-carousel',
-                'gallery-single-images',
-                'gallery-social-media',
-                'form',
-                'wysiwyg',
-                'highlight',
-                'contact-card',
-                'relatable',
-                'relatable-filtered',
-                'hero',
-                'image',
-                'horizontal-line',
-                'icon-teaser-row',
-                'productteaser',
-                'card',
-                'section-title',
-                'testimonial',
-                'directions',
-                'link',
-                'call-to-action',
-                'wysiwyg',
-                'step-list',
-                'video',
-            ]
-        ]) ?>
+        <?= $this->areablock($id) ?>
     </div>
 </section>
 <style>
@@ -99,29 +71,6 @@ $id = 'areaBlock';
 } else {
             $areaBlock = $this->areablock($id, [
                 'manual' => true,
-                'allowed' => [
-                    'wrapper',
-                    'gallery-carousel',
-                    'wysiwyg',
-                    'highlight',
-                    'relatable',
-                    'relatable-filtered',
-                    'hero',
-                    'image',
-                    'horizontal-line',
-                    'icon-teaser-row',
-                    'contact-card',
-                    'productteaser',
-                    'card',
-                    'section-title',
-                    'testimonial',
-                    'wrapper',
-                    'directions',
-                    'link',
-                    'call-to-action',
-                    'wysiwyg',
-                    'video',
-                ]
             ])->start();
 
             $componentsCopy = $this->slots()->components;

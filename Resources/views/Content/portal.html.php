@@ -19,32 +19,6 @@
  * @var \Pimcore\Templating\GlobalVariables $app
  */
 $this->extend('layout.html.php');
-
 ?>
 
-    <?= $this->areablock(
-    'content',
-    [
-            'allowed' => [
-                'api',
-                'wrapper',
-                'gallery-grid',
-                'gallery-single-images',
-                'gallery-social-media',
-                'form',
-                'relatable',
-                'relatable-filtered',
-                'hero',
-                'image',
-                'icon-teaser-row',
-                'card',
-                'section-title',
-                'testimonial',
-                'directions',
-                'link',
-                'call-to-action',
-                'wysiwyg',
-                'video',
-            ]
-        ]
-    ) ?>
+<?= $this->areablock('content') ?>
