@@ -36,7 +36,7 @@
 } else {
         $this->slots()->components[] = [
             'type' => 'CmsLink',
-            'link' => $this->link('link')->getData(),
+            'data' => $this->link('link')->getData(),
         ];
     }
 ?>
