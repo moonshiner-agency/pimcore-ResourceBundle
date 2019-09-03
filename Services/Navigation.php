@@ -89,6 +89,10 @@ class Navigation
     {
         $search = \Pimcore\Tool\Frontend::getWebsiteConfig()->get('rootPath') ?: '';
 
-        return $search === '' ? $uri : array_reverse(explode($search, $uri, 2))[0];
+        if (substr($uri, 0, strlen($search)) === $search) {
+            return substr($uri, strlen($search));
+        }
+    
+        return $uri;
     }
 }
