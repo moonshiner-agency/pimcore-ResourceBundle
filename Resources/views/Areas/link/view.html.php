@@ -12,6 +12,8 @@
  * @license    http://www.pimcore.org/license     GPLv3 and PEL
  */
 
+use Moonshiner\BrigthenBundle\JsonResources\LinkResource;
+
 /**
  * @var \Pimcore\Templating\PhpEngine $this
  * @var \Pimcore\Templating\PhpEngine $view
@@ -36,7 +38,7 @@
 } else {
         $this->slots()->components[] = [
             'type' => 'CmsLink',
-            'data' => $this->link('link')->getData(),
+            'data' => (new LinkResource($this->link('link')))->toArray(),
         ];
     }
 ?>

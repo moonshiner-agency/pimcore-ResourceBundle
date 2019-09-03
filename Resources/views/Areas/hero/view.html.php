@@ -12,6 +12,9 @@
  * @license    http://www.pimcore.org/license     GPLv3 and PEL
  */
 
+use Moonshiner\BrigthenBundle\JsonResources\ImageResource;
+use Moonshiner\BrigthenBundle\JsonResources\LinkResource;
+
 /**
  * @var \Pimcore\Templating\PhpEngine $this
  * @var \Pimcore\Templating\PhpEngine $view
@@ -45,6 +48,6 @@
             'subline' => $this->input('subline')->getData(),
             'image' => $this->image('image')->getImage() ? (new ImageResource($this->image('image')->getImage()))->toArray() : null,
             'text' => $this->wysiwyg('text')->getData(),
-            'link' => $this->link('link')->getData()
+            'link' => (new LinkResource($this->link('link')))->toArray(),
         ];
     }?>

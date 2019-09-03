@@ -19,6 +19,7 @@
  * @var \Pimcore\Templating\GlobalVariables $app
  */
 use Moonshiner\BrigthenBundle\JsonResources\ImageResource;
+use Moonshiner\BrigthenBundle\JsonResources\LinkResource;
 use Moonshiner\BrigthenBundle\JsonResources\TagResource;
 use Moonshiner\BrigthenBundle\Services\Resource;
 
@@ -114,7 +115,7 @@ use Moonshiner\BrigthenBundle\Services\Resource;
             $data[] = [
                 'title' => $this->input('title')->getData(),
                 'content' => $this->textarea('text')->getData(),
-                'link' => $this->link('link')->getData(),
+                'link' => (new LinkResource($this->link('link')))->toArray(),
                 'hasBorder' => $this->checkbox('hasBorder')->getData(),
                 'subline' => $this->input('subtitle')->getData(),
                 'tags' => TagResource::collection($this->relations('tag')->getElements(), Resource::NESTED),
@@ -125,8 +126,7 @@ use Moonshiner\BrigthenBundle\Services\Resource;
         if ($block->getCount() <= 1) {
             $this->slots()->components[] =  array_merge([
                     'type' => 'CmsCard',
-            ], isset($data[0] ) ? $data[0] : []);
-
+            ], isset($data[0]) ? $data[0] : []);
         } else {
             $this->slots()->components[] = [
                 'type' => 'CmsCardList',

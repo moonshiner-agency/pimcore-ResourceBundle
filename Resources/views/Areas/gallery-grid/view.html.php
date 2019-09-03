@@ -19,6 +19,7 @@
  * @var \Pimcore\Templating\GlobalVariables $app
  */
 use Moonshiner\BrigthenBundle\JsonResources\ImageResource;
+use Moonshiner\BrigthenBundle\JsonResources\LinkResource;
 
 if ($this->editmode) { ?>
     <section class="col-md-8 mb-20">
@@ -86,27 +87,27 @@ if ($this->editmode) { ?>
 
 <?php
 } else {
-        $data =
+    $data =
             [
                 [
-                    'link' => $this->link('link1')->getData(),
+                    'link' => (new LinkResource($this->link('link1')))->toArray(),
                     'image' => $this->image('image1')->getImage() ? (new ImageResource($this->image('image1')->getImage()))->toArray() : null
                 ],
                 [
-                    'link' => $this->link('link2')->getData(),
+                    'link' => (new LinkResource($this->link('link2')))->toArray(),
                     'image' => $this->image('image2')->getImage() ? (new ImageResource($this->image('image2')->getImage()))->toArray() : null
                 ],
                 [
-                    'link' => $this->link('link3')->getData(),
+                    'link' => (new LinkResource($this->link('link3')))->toArray(),
                     'image' => $this->image('image3')->getImage() ? (new ImageResource($this->image('image3')->getImage()))->toArray() : null
                 ],
                 [
-                    'link' => $this->link('link4')->getData(),
+                    'link' => (new LinkResource($this->link('link4')))->toArray(),
                     'image' => $this->image('image4')->getImage() ? (new ImageResource($this->image('image4')->getImage()))->toArray() : null
                 ],
         ];
 
-        $this->slots()->components[] = [
+    $this->slots()->components[] = [
             'title' =>  $this->input('title')->getData(),
             'text' =>  $this->textarea('text')->getData(),
             'type' => 'CmsGalleryGrid',
