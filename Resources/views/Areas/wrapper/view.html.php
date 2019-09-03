@@ -50,8 +50,14 @@ $id = 'areaBlock';
         ]); ?>
         <br>
         <br>
-         <strong>Width</strong><br>
-        <?= $this->checkbox('fullWidth', ['label' => 'Full Width?']); ?>
+        
+        <strong>Width</strong><br>
+        <?= $this->checkbox('fullWidth', ['label' => '&nbsp;Full Width?']); ?>
+        <br>
+
+        <strong>Centered</strong><br>
+        <?= $this->checkbox('centered', ['label' => '&nbsp;Centered?']); ?>
+
         <div class="wrapper-subsection">
         <?= $this->areablock($id) ?>
     </div>
@@ -93,6 +99,7 @@ $id = 'areaBlock';
             $this->slots()->components[] = [
                 'type' => 'wrapper',
                 'isFullWidth' => $this->checkbox('fullWidth')->isChecked(),
+                'isCentered' => $this->checkbox('centered')->isChecked(),
                 'theme' => $this->select('theme')->getData(),
                 'layout' => $this->select('layout')->getData(),
                 'data' => $elements
