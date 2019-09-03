@@ -58,7 +58,7 @@ class Navigation
                 $hasChild = count($page->getPages());
                 return [
                     'id' => $page->getId(),
-                    'uri' => $this->getUri($page->getUri()),
+                    'uri' => self::getUri($page->getUri()),
                     'title' => $page->getTitle() ? $page->getTitle() : $page->getLabel(),
                     'class' => $page->getClass(),
                     'target' => $page->getTarget() ? $page->getTarget() : "_self",
