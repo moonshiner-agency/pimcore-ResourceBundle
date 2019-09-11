@@ -35,7 +35,7 @@ if (!$this->editmode) {
 
     if ($order === 'most-recently-created') {
         $list->setOrderKey('o_creationDate');
-    } else if ($order === 'most-recently-updated') {
+    } elseif ($order === 'most-recently-updated') {
         $list->setOrderKey('o_modificationDate');
     } else {
         $list->setOrderKey("RAND()", false);
@@ -45,6 +45,10 @@ if (!$this->editmode) {
     $list->setObjectTypes([AbstractObject::OBJECT_TYPE_OBJECT]);
     $list->setLimit((int) $maxEntries);
     $children = $list->load();
+
+    if (empty($children)) {
+        return;
+    }
 
     $shortClassName = '';
     $this->slots()->components[] = [
