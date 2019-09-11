@@ -33,9 +33,11 @@ use Moonshiner\BrigthenBundle\JsonResources\LinkResource;
                 </div>
                 <div class="mb-20">
                     <label class="text-info">Headline:</label><br />
-                    <h3 class="noMarginTop">
-                        <?= $this->input('headline', ['placeholder' => 'Headline']) ?>
-                    </h3>
+                    <?= $this->input('headline', ['placeholder' => 'Headline']) ?>
+                </div>
+                <div class="mb-20">
+                    <label class="text-info">Description:</label><br />
+                    <?= $this->textarea('description', ['placeholder' => 'Description', 'height' => 100]) ?>
                 </div>
                 <div class="mb-20">
                     <label class="text-info">Link:</label><br />
@@ -48,7 +50,8 @@ use Moonshiner\BrigthenBundle\JsonResources\LinkResource;
 } else {
         $this->slots()->components[] = [
             'type' => 'CmsCallToAction',
-            'headline' => $this->input('headline')->getData(),
+            'title' => $this->input('headline')->getData(),
+            'description' => $this->textarea('description')->getData(),
             'image' => $this->image('image')->getImage() ? (new ImageResource($this->image('image')->getImage()))->toArray() : null,
             'link' => (new LinkResource($this->link('link')))->toArray(),
         ];
