@@ -11,6 +11,10 @@ class LinkResource extends Resource
     {
         $link = $this->resource->getData();
 
+        if ($link['internal'] === null && $link['text'] === null) {
+            return null;
+        }
+
         return [
             'internalType' => $link['internalType'],
             'linktype' => $link['linktype'],
