@@ -14,13 +14,13 @@
 
 namespace Moonshiner\BrigthenBundle\Document\Areabrick;
 
-class Wysiwyg extends AbstractAreabrick
+class CallToAction extends AbstractAreabrick
 {
     /**
      * {@inheritdoc}
      */
     public function getName()
     {
-        return 'Text';
+        return 'Call to action';
     }
 }

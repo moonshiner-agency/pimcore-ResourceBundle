@@ -1,16 +1,13 @@
 services:
+  _defaults:
+    autowire: true
+    autoconfigure: true
+    public: false
 
-    _defaults:
-        autowire: true
-        autoconfigure: true
-        public: false
-
-    # core event: request
-    Moonshiner\BrigthenBundle\EventListener\Core\RequestListener:
-        tags:
-            - { name: kernel.event_subscriber }
-    Moonshiner\BrigthenBundle\EventListener\MailListener:
-        tags:
-            - { name: kernel.event_subscriber }
-
-   
+  # core event: request
+  Moonshiner\BrigthenBundle\EventListener\Core\RequestListener:
+    tags:
+      - { name: kernel.event_subscriber }
+  Moonshiner\BrigthenBundle\EventListener\MailListener:
+    tags:
+      - { name: kernel.event_subscriber }

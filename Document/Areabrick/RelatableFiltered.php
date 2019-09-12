@@ -14,13 +14,13 @@
 
 namespace Moonshiner\BrigthenBundle\Document\Areabrick;
 
-class Wysiwyg extends AbstractAreabrick
+class RelatableFiltered extends AbstractAreabrick
 {
     /**
      * {@inheritdoc}
      */
     public function getName()
     {
-        return 'Text';
+        return 'Filtered data folder';
     }
 }

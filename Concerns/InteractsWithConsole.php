@@ -26,4 +26,18 @@ trait InteractsWithConsole
         $output = new  ConsoleOutput();
         $application->run($input, $output);
     }
+
+    public static function runCommand($command, $parameters = [])
+    {
+        $kernel = \Pimcore::getKernel();
+        $application = new Application($kernel);
+        $application->setAutoExit(false);
+        $input = new ArrayInput(array_merge([
+                'command' => $command,
+                '-q' => true,
+            ], $parameters));
+
+        $output = new  ConsoleOutput();
+        $application->run($input, $output);
+    }
 }

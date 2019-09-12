@@ -48,7 +48,7 @@ use Moonshiner\BrigthenBundle\JsonResources\TagResource;
                 'number' => $this->input('number')->getData(),
                 'isSmall' => $this->checkbox('isSmall')->isChecked(),
                 'tags' => $tags,
-                'image' => (new ImageResource($this->image('image')))->toArray(),
+                'image' => $this->image('image')->getImage() ? (new ImageResource($this->image('image')->getImage()))->toArray() : null
             ];
             $tagID++;
         }

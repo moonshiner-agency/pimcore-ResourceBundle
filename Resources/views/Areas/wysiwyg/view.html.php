@@ -1,5 +1,4 @@
 <?php
-
 /**
  * Pimcore
  *
@@ -18,7 +17,24 @@
  * @var \Pimcore\Templating\PhpEngine $view
  * @var \Pimcore\Templating\GlobalVariables $app
  */
-$this->extend('layout.html.php');
 ?>
 
-<?= $this->areablock('content') ?>
+<?php if ($this->editmode) {
+    ?>
+    <section>
+        <div class="cms-component-type">Text</div>
+        <div class="row">
+            <div class="col-md-8">
+                <label class="text-info">Text:</label><br />
+                <?= $this->wysiwyg('wysiwyg'); ?>
+            </div>
+        </div>
+    </section>
+    <?php
+} else {
+        $this->slots()->components[] = [
+            'type' => 'CmsText',
+            'wysiwyg' => $this->wysiwyg('wysiwyg')->getData(),
+        ];
+    }
+?>

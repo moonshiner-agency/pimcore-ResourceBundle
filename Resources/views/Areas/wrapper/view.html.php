@@ -33,7 +33,8 @@ $id = 'areaBlock';
             'store' => [
                 ['default', 'Default'],
                 ['primary', 'Primary'],
-                ['secondary', 'Secondary']
+                ['secondary', 'Secondary'],
+                ['highlighted', 'Highlighted'],
             ]
         ]); ?>
         <br>
@@ -49,109 +50,33 @@ $id = 'areaBlock';
         ]); ?>
         <br>
         <br>
-         <strong>Width</strong><br>
-        <?= $this->checkbox('fullWidth', ['label' => 'Full Width?']); ?>
-        <div class="wrapper-subsection-<?= $this->select('layout')->getData() ?>">
-        <?= $this->areablock($id, [
-            'allowed' => [
-                'wrapper',
-                'video',
-                'gallery-carousel',
-                'gallery-single-images',
-                'gallery-social-media',
-                'form',
-                'wysiwyg',
-                'highlight',
-                'contact-card',
-                'relatable',
-                'relatable-filtered',
-                'hero',
-                'image',
-                'horizontal-line',
-                'icon-teaser-row',
-                'productteaser',
-                'card',
-                'section-title',
-                'testimonial',
-                'directions',
-                'form',
+        
+        <strong>Width</strong><br>
+        <?= $this->checkbox('fullWidth', ['label' => '&nbsp;Full Width?']); ?>
+        <br>
 
-            ]
-        ]) ?>
-        <style>
-        .wrapper-subsection-2x2 .pimcore_tag_areablock {
-                display: grid;
-                grid-gap: 20px;
-                grid-template-columns: 50% 50%;
-            }
-            .wrapper-subsection-2x2 .pimcore_tag_areablock .pimcore_area_entry section {
-    height: 100%;
-    margin: 0;
-}
+        <strong>Centered</strong><br>
+        <?= $this->checkbox('centered', ['label' => '&nbsp;Centered?']); ?>
 
-.wrapper-subsection-2x2-1 .pimcore_tag_areablock {
-                grid-gap: 20px;
-  display: grid;
-  align-items: center;
-  grid-template-rows: auto 1fr auto;  /* key rule */
-  grid-template-columns: 50% 50%;
-  grid-template-areas:
-    'a b'
-    'c c';
-
-}
-.wrapper-subsection-2x2-1 .pimcore_area_entry:first-of-type section{
-    margin: 0; 
-    height: 100%;
-
-}
-.wrapper-subsection-2x2-1 .pimcore_area_entry:first-of-type {
-    grid-area: a;
-    height: 100%; 
-  }
-  .wrapper-subsection-2x2-1 .pimcore_area_entry:nth-of-type(2) section{
-    margin: 0; 
-    height: 100%;
-      }
-  .wrapper-subsection-2x2-1 .pimcore_area_entry:nth-of-type(2) {
-    grid-area: b;
-    height: 100%; 
-  }
-  .wrapper-subsection-2x2-1 .pimcore_area_entry:nth-of-type(3) section{
-    margin: 0; 
-    height: 100%;
-      }
-  .wrapper-subsection-2x2-1 .pimcore_area_entry:nth-of-type(3) {
-    margin: 0; 
-    grid-area: c;
-    height: 100%; 
-  }
-        </style>
-        </div>
-    </section>
+        <div class="wrapper-subsection">
+        <?= $this->areablock($id) ?>
+    </div>
+</section>
+<style>
+    .wrapper-subsection .pimcore_tag_areablock {
+        display: grid;
+        grid-gap: 5px;
+        grid-template-columns: 50% 50%;
+    }
+    .wrapper-subsection .pimcore_tag_areablock .pimcore_area_entry section {
+        height: 100%;
+        margin: 0;
+    }
+</style>
 <?php
 } else {
             $areaBlock = $this->areablock($id, [
                 'manual' => true,
-                'allowed' => [
-                    'wrapper',
-                    'gallery-carousel',
-                    'wysiwyg',
-                    'highlight',
-                    'relatable',
-                    'relatable-filtered',
-                    'hero',
-                    'image',
-                    'horizontal-line',
-                    'icon-teaser-row',
-                    'contact-card',
-                    'productteaser',
-                    'card',
-                    'section-title',
-                    'testimonial',
-                    'wrapper',
-                    'directions',
-                ]
             ])->start();
 
             $componentsCopy = $this->slots()->components;
@@ -174,6 +99,7 @@ $id = 'areaBlock';
             $this->slots()->components[] = [
                 'type' => 'wrapper',
                 'isFullWidth' => $this->checkbox('fullWidth')->isChecked(),
+                'isCentered' => $this->checkbox('centered')->isChecked(),
                 'theme' => $this->select('theme')->getData(),
                 'layout' => $this->select('layout')->getData(),
                 'data' => $elements

@@ -17,7 +17,7 @@ class Navigation
         $this->siteRoot = \Pimcore\Tool\Frontend::getWebsiteConfig()->get('rootPath') ?: '';
     }
 
-    public function from( $pageId )
+    public function from($pageId)
     {
         $this->from = $pageId;
         return $this;
@@ -55,14 +55,14 @@ class Navigation
                 return $page->getVisible();
             })
             ->map(function ($page) {
-                $hasChild = count( $page->getPages() );
+                $hasChild = count($page->getPages());
                 return [
                     'id' => $page->getId(),
-                    'uri' => $this->getUri($page->getUri()),
+                    'uri' => self::getUri($page->getUri()),
                     'title' => $page->getTitle() ? $page->getTitle() : $page->getLabel(),
                     'class' => $page->getClass(),
                     'target' => $page->getTarget() ? $page->getTarget() : "_self",
-                    'pages' => $hasChild ? $this->mapPages( $page->getPages()) : [],
+                    'pages' => $hasChild ? $this->mapPages($page->getPages()) : [],
                 ];
             })
             ->values();
@@ -85,10 +85,14 @@ class Navigation
         return \Pimcore\Model\Document::getById(1)->getId();
     }
 
-    protected function getUri($uri)
+    public static function getUri($uri)
     {
-        $lang = $this->request->getCurrentRequest()->getLocale();
-        $search = $this->siteRoot;
-        return $search === '' ? $uri : array_reverse(explode($search, $uri, 2))[0];
+        $search = \Pimcore\Tool\Frontend::getWebsiteConfig()->get('rootPath') ?: '';
+
+        if (substr($uri, 0, strlen($search)) === $search) {
+            return substr($uri, strlen($search));
+        }
+    
+        return $uri;
     }
 }

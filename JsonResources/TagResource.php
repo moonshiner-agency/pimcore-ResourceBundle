@@ -8,9 +8,16 @@ class TagResource extends Resource
 {
     public function toArray()
     {
-        return [
-            'text' => $this->resource->getTitle(),
-            'icon' => $this->resource->getIcon() ? \Pimcore\Tool::getHostUrl().$this->resource->getIcon()->getThumbnail('icon')->getPath() : null
+        if($this->resource) {
+            return [
+                'text' => $this->resource->getTitle(),
+                'icon' => $this->resource->getIcon()
+            ];
+        }
+
+        return  [
+            'text' => '',
+            'icon' => ''
         ];
     }
 }

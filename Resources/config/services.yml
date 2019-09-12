@@ -10,10 +10,15 @@ services:
     # moonshiner.webresource:
     #     class: Moonshiner\BrigthenBundle\Services\ResourceInterface
     # Moonshiner\BrigthenBundle\Security\User\UserProvider: ~
-    # Moonshiner\BrigthenBundle\Security\User\CustomerProvider: ~
     # Moonshiner\BrigthenBundle\Services\Navigation: ~
+    Moonshiner\BrigthenBundle\Security\User\CustomerProvider: ~
     Moonshiner\BrigthenBundle\Form\CompoundTransformer:
         tags:
             - { name: liform.transformer, form_type: compound }
     # Moonshiner\BrigthenBundle\Service\Factory:
     #     true
+
+    Moonshiner\BrigthenBundle\Command\:
+        resource: '../../Command'
+        public: true
+        tags: ['console.command']

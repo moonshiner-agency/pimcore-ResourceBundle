@@ -9,7 +9,7 @@ trait InteractsWithDatabase
     public static $pimcoreSetupDone = false;
     public static $classesBuilded = false;
 
-    public static function setupPimcore( $db = null )
+    public static function setupPimcore($db = null)
     {
         if (static::$pimcoreSetupDone) {
             return;
@@ -29,8 +29,7 @@ trait InteractsWithDatabase
         $schemaManager = $setupConnection->getSchemaManager();
         $databases = $schemaManager->listDatabases();
         if (in_array($dbName, $databases)) {
-
-            if(! $db ) {
+            if (! $db) {
                 $db = $connection->quoteIdentifier($dbName);
             }
             // you can use this to get the name of the database $connection->quoteIdentifier($dbName)
@@ -62,24 +61,39 @@ trait InteractsWithDatabase
 
     public static function refresh()
     {
-        $connection = \Pimcore::getContainer()->get('database_connection');
-        $schemaManager = $connection->getSchemaManager();
-        $tables = $schemaManager->listTables();
-        $query = '';
-        foreach($tables as $table) {
-            $name = $table->getName();
-            $query .= 'TRUNCATE ' . $name . ';';
+        try {
+            $connection = \Pimcore::getContainer()->get('database_connection');
+            $schemaManager = $connection->getSchemaManager();
+            $tables = $schemaManager->listTables();
+            $query = '';
+            foreach ($tables as $table) {
+                $name = $table->getName();
+                $query .= 'TRUNCATE ' . $name . ';';
+            }
+            $connection->executeQuery('SET FOREIGN_KEY_CHECKS = 0;', array(), array());
+            $connection->executeQuery($query, array(), array());
+            static::$classesBuilded = false;
+        } catch (\Throwable $th) {
+            //throw $th;
         }
-        $connection->executeQuery('SET FOREIGN_KEY_CHECKS = 0;', array(), array());
-        $connection->executeQuery($query, array(), array());
-        static::$classesBuilded = false;
     }
 
-     /**
-     * Build the class definitions
+    /**
+     * Get the database connection.
      *
-     * @return $this
+     * @param  string|null  $connection
+     * @return \Illuminate\Database\Connection
      */
+    public static function getConnection()
+    {
+        return \Pimcore::getContainer()->get('database_connection');
+    }
+
+    /**
+    * Build the class definitions
+    *
+    * @return $this
+    */
     public function classesRebuild()
     {
         $this->console('pimcore:deployment:classes-rebuild', ['-c' =>true ]);
@@ -197,7 +211,8 @@ trait InteractsWithDatabase
             foreach ($userPermissions as $up) {
                 $db->insert('users_permission_definitions', $up);
             }
-        } catch (\Throwable $th) {  }
+        } catch (\Throwable $th) {
+        }
     }
 
 
@@ -246,24 +261,6 @@ trait InteractsWithDatabase
         // $this->assertThat($table, $constraint);
 
         // return $this;
-    }
-
-
-
-    /**
-     * Get the database connection.
-     *
-     * @param  string|null  $connection
-     * @return \Illuminate\Database\Connection
-     */
-    protected function getConnection($connection = null)
-    {
-        // $connection = \Pimcore::getContainer()->get('database_connection');
-        // $database = $this->app->make('db');
-
-        // $connection = $connection ?: $database->getDefaultConnection();
-
-        // return $database->connection($connection);
     }
 
     /**

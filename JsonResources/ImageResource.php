@@ -3,12 +3,13 @@
 namespace Moonshiner\BrigthenBundle\JsonResources;
 
 use Moonshiner\BrigthenBundle\Services\Resource;
+use Moonshiner\BrigthenBundle\Services\Service\SystemSettings;
 
 class ImageResource extends Resource
 {
     public function toArray()
     {
-        $host = \Pimcore\Tool::getHostUrl();
+        $host =  SystemSettings::getHostUrl();
         return [
             'src' => $host . $this->resource->getFullPath(),
             'thumbnails' => [
