@@ -139,7 +139,7 @@ class Form extends AbstractTemplateAreabrick
             if (isset($formData['properties'])) {
                 foreach ($formData['properties'] as &$field) {
                     if (isset($field['widget'])) {
-                        $field['ui-widget'] = $field['widget'];
+                        $field['ui:widget'] = $field['widget'];
                     }
                 }
             }
