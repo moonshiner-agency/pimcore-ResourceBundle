@@ -62,17 +62,6 @@ $id = 'areaBlock';
         <?= $this->areablock($id) ?>
     </div>
 </section>
-<style>
-    .wrapper-subsection .pimcore_tag_areablock {
-        display: grid;
-        grid-gap: 5px;
-        grid-template-columns: 50% 50%;
-    }
-    .wrapper-subsection .pimcore_tag_areablock .pimcore_area_entry section {
-        height: 100%;
-        margin: 0;
-    }
-</style>
 <?php
 } else {
             $areaBlock = $this->areablock($id, [
