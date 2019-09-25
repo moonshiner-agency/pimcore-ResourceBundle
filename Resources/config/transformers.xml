@@ -1,0 +1,59 @@
+<?xml version="1.0" ?>
+
+<container xmlns="http://symfony.com/schema/dic/services"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+
+    <services>
+        <service id="Limenius\Liform\Transformer\AbstractTransformer" abstract="true">
+            <argument type="service" id="translator" />
+            <argument type="service" id="liform.guesser.validator" />
+        </service>
+
+        <service id="liform.transformer.boolean" class="Moonshiner\BrigthenBundle\Form\Transformer\CheckboxTransformer" parent="Limenius\Liform\Transformer\AbstractTransformer">
+            <tag name="liform.transformer" form_type="checkbox" widget="checkbox"/>
+        </service>
+
+        <service id="Moonshiner\BrigthenBundle\Form\Transformer\TextareaTransformer" parent="Limenius\Liform\Transformer\AbstractTransformer">
+            <tag name="liform.transformer" form_type="textarea" widget="textarea"/>
+        </service>
+
+        <service id="liform.transformer.string" class="Moonshiner\BrigthenBundle\Form\Transformer\TextTransformer" parent="Limenius\Liform\Transformer\AbstractTransformer">
+            <tag name="liform.transformer" form_type="text"/>
+            <tag name="liform.transformer" form_type="integer"/>
+            <tag name="liform.transformer" form_type="url" widget="url"/>
+            <tag name="liform.transformer" form_type="search" widget="search"/>
+            <tag name="liform.transformer" form_type="money" widget="money"/>
+            <tag name="liform.transformer" form_type="password" widget="password"/>
+            <tag name="liform.transformer" form_type="time" widget="time"/>
+            <tag name="liform.transformer" form_type="percent" widget="percent"/>
+            <tag name="liform.transformer" form_type="number"/>
+        </service>
+
+        <service id="Moonshiner\BrigthenBundle\Form\Transformer\EmailTransformer" parent="Limenius\Liform\Transformer\AbstractTransformer">
+            <tag name="liform.transformer" form_type="email" widget="email"/>
+        </service>
+
+        <service id="Moonshiner\BrigthenBundle\Form\Transformer\DateTransformer" parent="Limenius\Liform\Transformer\AbstractTransformer">
+            <tag name="liform.transformer" form_type="date" widget="date"/>
+            <tag name="liform.transformer" form_type="datetime" widget="datetime"/>
+        </service>
+
+        <service id="liform.transformer.choice" class="Moonshiner\BrigthenBundle\Form\Transformer\ChoiceTransformer" parent="Limenius\Liform\Transformer\AbstractTransformer">
+            <tag name="liform.transformer" form_type="choice"/>
+        </service>
+
+        <service id="liform.transformer.array" class="Moonshiner\BrigthenBundle\Form\Transformer\CollectionTransformer" parent="Limenius\Liform\Transformer\AbstractTransformer">
+            <argument type="service" id="liform.resolver" />
+            <tag name="liform.transformer" form_type="collection"/>
+        </service>
+
+        <service id="liform.transformer.compound" class="Moonshiner\BrigthenBundle\Form\Transformer\CompoundTransformer" parent="Limenius\Liform\Transformer\AbstractTransformer">
+            <argument type="service" id="liform.resolver" />
+            <tag name="liform.transformer" form_type="compound"/>
+        </service>
+
+    </services>
+
+</container>
+

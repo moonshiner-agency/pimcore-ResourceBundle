@@ -1,26 +1,15 @@
 <?php
 
-/*
- * This file is part of the Limenius\Liform package.
- *
- * (c) Limenius <https://github.com/Limenius/>
- *
- * For the full copyright and license information, please view the LICENSE
- * file that was distributed with this source code.
- */
+namespace Moonshiner\BrigthenBundle\Form\Transformer;
 
-namespace Moonshiner\BrigthenBundle\Form;
-
+use Limenius\Liform\Exception\TransformerException;
 use Limenius\Liform\ResolverInterface;
 use Limenius\Liform\Transformer\AbstractTransformer;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\Form\FormTypeGuesserInterface;
 use Symfony\Component\Translation\TranslatorInterface;
 
-/**
- * @author Nacho Martín <nacho@limenius.com>
- */
-class CompoundTransformer extends AbstractTransformer
+class CollectionTransformer extends AbstractTransformer
 {
     /**
      * @var ResolverInterface
@@ -46,39 +35,45 @@ class CompoundTransformer extends AbstractTransformer
      */
     public function transform(FormInterface $form, array $extensions = [], $widget = null)
     {
-        $data = [];
-        $order = 1;
-        $required = [];
+        $children = [];
 
         foreach ($form->all() as $name => $field) {
-            if ($name == 'formId' || $name == 'formCl' || $name == 'inputUserName') {
-                continue;
-            }
             $transformerData = $this->resolver->resolve($field);
             $transformedChild = $transformerData['transformer']->transform($field, $extensions, $transformerData['widget']);
-            $transformedChild['propertyOrder'] = $order;
-            $data[$name] = $transformedChild;
-            $order ++;
+            $children[] = $transformedChild;
 
             if ($transformerData['transformer']->isRequired($field)) {
                 $required[] = $field->getName();
             }
         }
 
-        $schema = [
-            'type' => 'object',
-            'properties' => $data,
-        ];
-        if (!empty($required)) {
-            $schema['required'] = $required;
+        if (empty($children)) {
+            $entryType = $form->getConfig()->getAttribute('prototype');
+
+            if (!$entryType) {
+                throw new TransformerException('Liform cannot infer the json-schema representation of a an empty Collection or array-like type without the option "allow_add" (to check the proptotype). Evaluating "'.$form->getName().'"');
+            }
+
+            $transformerData = $this->resolver->resolve($entryType);
+            $children[] = $transformerData['transformer']->transform($entryType, $extensions, $transformerData['widget']);
+            $children[0]['title'] = 'prototype';
         }
 
-        $innerType = $form->getConfig()->getType()->getInnerType();
+        $schema = [
+            'widget' => 'collection',
+            'type' => 'array',
+            'title' => $form->getConfig()->getOption('label'),
+            'items' => $children[0],
+        ];
 
         $schema = $this->addCommonSpecs($form, $schema, $extensions, $widget);
 
-        if (method_exists($innerType, 'buildLiform')) {
-            $schema = $innerType->buildLiform($form, $schema);
+        if (isset($schema['attr']) && isset($schema['attr']['class'])) {
+            if (strpos($schema['attr']['class'], 'formbuilder-container-fieldset') !== false) {
+                $schema['widget'] = 'fieldset';
+            } elseif (strpos($schema['attr']['class'], 'formbuilder-container-repeater') !== false) {
+                $schema['widget'] = 'repeater';
+            }
         }
 
         return $schema;

@@ -1,24 +1,26 @@
 services:
-    _defaults:
-        # automatically injects dependencies in your services
-        autowire: true
-        # automatically registers your services as commands, event subscribers, etc.
-        autoconfigure: true
-        # this means you cannot fetch services directly from the container via $container->get()
-        # if you need to do this, you can override this setting on individual services
-        public: false
-    # moonshiner.webresource:
-    #     class: Moonshiner\BrigthenBundle\Services\ResourceInterface
-    # Moonshiner\BrigthenBundle\Security\User\UserProvider: ~
-    # Moonshiner\BrigthenBundle\Services\Navigation: ~
-    Moonshiner\BrigthenBundle\Security\User\CustomerProvider: ~
-    Moonshiner\BrigthenBundle\Form\CompoundTransformer:
-        tags:
-            - { name: liform.transformer, form_type: compound }
-    # Moonshiner\BrigthenBundle\Service\Factory:
-    #     true
+  _defaults:
+    # automatically injects dependencies in your services
+    autowire: true
+    # automatically registers your services as commands, event subscribers, etc.
+    autoconfigure: true
+    # this means you cannot fetch services directly from the container via $container->get()
+    # if you need to do this, you can override this setting on individual services
+    public: false
+  # moonshiner.webresource:
+  #     class: Moonshiner\BrigthenBundle\Services\ResourceInterface
+  # Moonshiner\BrigthenBundle\Security\User\UserProvider: ~
+  # Moonshiner\BrigthenBundle\Services\Navigation: ~
+  Moonshiner\BrigthenBundle\Security\User\CustomerProvider: ~
 
-    Moonshiner\BrigthenBundle\Command\:
-        resource: '../../Command'
-        public: true
-        tags: ['console.command']
+  #  Moonshiner\BrigthenBundle\Form\CompoundTransformer:
+  #    tags:
+  #      - { name: liform.transformer, form_type: compound }
+
+  # Moonshiner\BrigthenBundle\Service\Factory:
+  #     true
+
+  Moonshiner\BrigthenBundle\Command\:
+    resource: '../../Command'
+    public: true
+    tags: ['console.command']

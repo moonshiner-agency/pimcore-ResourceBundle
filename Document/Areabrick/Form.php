@@ -136,14 +136,6 @@ class Form extends AbstractTemplateAreabrick
         if ($assemblerViewVars['formData']) {
             $formData = $this->liform->transform($assemblerViewVars['formData']);
 
-            if (isset($formData['properties'])) {
-                foreach ($formData['properties'] as &$field) {
-                    if (isset($field['widget'])) {
-                        $field['ui:widget'] = $field['widget'];
-                    }
-                }
-            }
-
             $view->formData = $formData;
         }
     }
