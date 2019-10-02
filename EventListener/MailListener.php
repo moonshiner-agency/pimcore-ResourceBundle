@@ -3,7 +3,6 @@
 namespace Moonshiner\BrigthenBundle\EventListener;
 
 use FormBuilderBundle\Event\MailEvent;
-use FormBuilderBundle\Event\SubmissionEvent;
 use FormBuilderBundle\FormBuilderEvents;
 use FormBuilderBundle\Parser\MailParser;
 use FormBuilderBundle\Session\FlashBagManagerInterface;
@@ -12,6 +11,7 @@ use FormBuilderBundle\Validation\ConditionalLogic\Dispatcher\Dispatcher;
 use FormBuilderBundle\Validation\ConditionalLogic\Dispatcher\Module\Data\DataInterface;
 use FormBuilderBundle\Validation\ConditionalLogic\Dispatcher\Module\Data\MailBehaviourData;
 use FormBuilderBundle\Validation\ConditionalLogic\Dispatcher\Module\Data\SuccessMessageData;
+use Moonshiner\BrigthenBundle\Event\Form\SubmissionEvent;
 use Pimcore\Mail;
 use Pimcore\Model\Document;
 use Pimcore\Templating\Renderer\IncludeRenderer;
@@ -65,7 +65,6 @@ class MailListener implements EventSubscriberInterface
         $this->flashBagManager = $flashBagManager;
         $this->mailParser = $mailParser;
         $this->includeRenderer = $includeRenderer;
-        $this->dispatcher = $dispatcher;
         $this->dispatcher = $dispatcher;
     }
 

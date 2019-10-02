@@ -2,11 +2,11 @@
 
 namespace Moonshiner\BrigthenBundle\EventListener\Core;
 
-use FormBuilderBundle\Event\SubmissionEvent;
 use FormBuilderBundle\Form\Builder;
 use FormBuilderBundle\Form\FormErrorsSerializerInterface;
 use FormBuilderBundle\FormBuilderEvents;
 use FormBuilderBundle\Session\FlashBagManagerInterface;
+use Moonshiner\BrigthenBundle\Event\Form\SubmissionEvent;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\Form\FormInterface;
@@ -102,26 +102,24 @@ class RequestListener implements EventSubscriberInterface
         }
 
         $data = json_decode($request->getContent(), true);
-
-        foreach ($data as $key => $parameters) {
-            if (strpos($key, 'formbuilder_') === false) {
-                continue;
-            }
-
-            if (isset($parameters['formId'])) {
-                $formId = $parameters['formId'];
-                break;
-            }
+        if (!isset($data['data'])) {
+            $data['data'] = [];
         }
-        if (is_null($formId)) {
+        if (!isset($data['relatedTo'])) {
             return;
         }
+        $relatedTo = $data['relatedTo'];
+        $formId = $this->getFormID($data);
+        if ($formId === null) {
+            return;
+        }
+
         try {
             $userOptions = isset($formConfiguration['user_options']) ? $formConfiguration['user_options'] : [];
             $form = $this->formBuilder->buildForm($formId, ['csrf_protection' => false]);
 
             $csrfToken = $this->csrfTokenManager->refreshToken('formbuilder_'.$formId)->getValue();
-            $form->submit(array_merge($data, ['_token' => $csrfToken]));
+            $form->submit(array_merge($data['data'], ['_token' => $csrfToken]));
         } catch (\Exception $e) {
             if ($request->isXmlHttpRequest()) {
                 $response = new JsonResponse([
@@ -141,7 +139,7 @@ class RequestListener implements EventSubscriberInterface
                 $sessionBag->remove('form_configuration_' . $formId);
             }
 
-            $submissionEvent = new SubmissionEvent($request, $formConfiguration, $form);
+            $submissionEvent = new SubmissionEvent($request, $formConfiguration, $form, $formId, $relatedTo);
             // not using the standard FormBuilderEvents::FORM_SUBMIT_SUCCESS - to prevent maillistener from reacting to the event
             $this->eventDispatcher->dispatch('form_builder.submitted.success', $submissionEvent);
 
@@ -156,6 +154,24 @@ class RequestListener implements EventSubscriberInterface
                 $this->handleAjaxErrorResponse($event, $form);
             }
         }
+    }
+
+    protected function getFormID(array $data): ?int
+    {
+        $formID = null;
+
+        foreach ($data as $key => $parameters) {
+            if (strpos($key, 'formbuilder_') === false) {
+                continue;
+            }
+
+            if (isset($parameters['formId'])) {
+                $formID = $parameters['formId'];
+                break;
+            }
+        }
+
+        return $formID;
     }
 
     /**
