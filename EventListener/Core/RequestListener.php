@@ -109,6 +109,10 @@ class RequestListener implements EventSubscriberInterface
             return;
         }
         $relatedTo = $data['relatedTo'];
+        $fileNames = null;
+        if (isset($data['files'])) {
+            $fileNames = $data['files'];
+        }
         $formId = $this->getFormID($data);
         if ($formId === null) {
             return;
@@ -139,7 +143,7 @@ class RequestListener implements EventSubscriberInterface
                 $sessionBag->remove('form_configuration_' . $formId);
             }
 
-            $submissionEvent = new SubmissionEvent($request, $formConfiguration, $form, $formId, $relatedTo);
+            $submissionEvent = new SubmissionEvent($request, $formConfiguration, $form, $formId, $relatedTo, $fileNames);
             // not using the standard FormBuilderEvents::FORM_SUBMIT_SUCCESS - to prevent maillistener from reacting to the event
             $this->eventDispatcher->dispatch('form_builder.submitted.success', $submissionEvent);
 

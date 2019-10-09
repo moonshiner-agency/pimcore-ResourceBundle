@@ -34,6 +34,11 @@ class SubmissionEvent extends Event
     private $relatedToKey;
 
     /**
+     * @var array
+     */
+    private $fileNames;
+
+    /**
      * @var null|string
      */
     private $redirectUri = null;
@@ -44,14 +49,16 @@ class SubmissionEvent extends Event
      * @param FormInterface $form
      * @param int           $formID
      * @param string        $relatedToKey
+     * @param array         $fileNames
      */
-    public function __construct(Request $request, $formConfiguration, FormInterface $form, int $formID, string $relatedToKey)
+    public function __construct(Request $request, $formConfiguration, FormInterface $form, int $formID, string $relatedToKey, array $fileNames)
     {
         $this->request = $request;
         $this->formConfiguration = $formConfiguration;
         $this->form = $form;
         $this->formID = $formID;
         $this->relatedToKey = $relatedToKey;
+        $this->fileNames = $fileNames;
     }
 
     /**
@@ -116,5 +123,13 @@ class SubmissionEvent extends Event
     public function getRelatedToKey()
     {
         return $this->relatedToKey;
+    }
+
+    /**
+     * @return array
+     */
+    public function getFileNames()
+    {
+        return $this->fileNames;
     }
 }
