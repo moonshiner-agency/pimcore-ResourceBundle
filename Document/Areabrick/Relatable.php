@@ -21,6 +21,6 @@ class Relatable extends AbstractAreabrick
      */
     public function getName()
     {
-        return 'Relatable';
+        return 'Data Objects';
     }
 }
