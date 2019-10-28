@@ -4,6 +4,7 @@ namespace Moonshiner\BrigthenBundle\JsonResources;
 
 use Moonshiner\BrigthenBundle\Services\Navigation;
 use Moonshiner\BrigthenBundle\Services\Resource;
+use Pimcore\Model\Document;
 
 class LinkResource extends Resource
 {
