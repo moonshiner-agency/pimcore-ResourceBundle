@@ -26,7 +26,7 @@ use Moonshiner\BrigthenBundle\JsonResources\LinkResource;
     <section>
         <div class="cms-component-type">Call to action</div>
         <div class="row">
-            <div class="col-md-6 col-md-offset-3 text-center">
+            <div class="col-md-6">
                 <div class="mb-20">
                     <label class="text-info">Image:</label><br />
                     <?= $this->image('image'); ?>

@@ -26,7 +26,7 @@ use Moonshiner\BrigthenBundle\Services\Service\SystemSettings;
     <section>
         <div class="cms-component-type">Video</div>
         <div class="row">
-            <div class="col-md-6 col-md-offset-3 text-center">
+            <div class="col-md-6">
                 <div class="mb-20">
                     <label class="text-info">Video:</label><br />
                     <?= $this->video('video', [
@@ -39,8 +39,8 @@ use Moonshiner\BrigthenBundle\Services\Service\SystemSettings;
     </section>
     <?php
 } else {
-        $video = $this->video('video');
-        $this->slots()->components[] = [
+                        $video = $this->video('video');
+                        $this->slots()->components[] = [
             'type' => 'CmsVideo',
             'video' => [
                 'type' => $video->getVideoType(),
@@ -51,5 +51,5 @@ use Moonshiner\BrigthenBundle\Services\Service\SystemSettings;
                 'id' => $video->getData()['id'],
             ]
         ];
-}
+                    }
 ?>

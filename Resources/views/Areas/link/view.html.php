@@ -11,7 +11,6 @@
  * @copyright  Copyright (c) Pimcore GmbH (http://www.pimcore.org)
  * @license    http://www.pimcore.org/license     GPLv3 and PEL
  */
-
 use Moonshiner\BrigthenBundle\JsonResources\LinkResource;
 
 /**
@@ -26,7 +25,7 @@ use Moonshiner\BrigthenBundle\JsonResources\LinkResource;
     <section>
         <div class="cms-component-type">Link</div>
         <div class="row">
-            <div class="col-md-6 col-md-offset-3 text-center">
+            <div class="col-md-6">
                 <div class="mb-20">
                     <label class="text-info">Link:</label><br />
                     <?= $this->link('link', ['class' => 'btn-info btn-link']) ?>

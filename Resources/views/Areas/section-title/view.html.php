@@ -24,7 +24,7 @@
     <section>
         <div class="cms-component-type">Section Title</div>
         <div class="row">
-            <div class="col-md-6 col-md-offset-3 text-center">
+            <div class="col-md-6">
                 <div><label class="text-info">Title:</label><h1><?= $this->input('title', ['placeholder' => 'Title']) ?></h1></div><hr>
                 <div><label class="text-info">Subtitle:</label><h4><?= $this->input('subtitle', ['placeholder' => 'Subtitle']) ?></h4></div><hr>
                 <div><label class="text-info">Content:</label><p><?= $this->textarea('content', ['placeholder' => 'Content']) ?></p></div>
