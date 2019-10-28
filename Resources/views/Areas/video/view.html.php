@@ -39,8 +39,8 @@ use Moonshiner\BrigthenBundle\Services\Service\SystemSettings;
     </section>
     <?php
 } else {
-                        $video = $this->video('video');
-                        $this->slots()->components[] = [
+        $video = $this->video('video');
+        $this->slots()->components[] = [
             'type' => 'CmsVideo',
             'video' => [
                 'type' => $video->getVideoType(),
@@ -48,7 +48,8 @@ use Moonshiner\BrigthenBundle\Services\Service\SystemSettings;
                 'description' => $video->getDescription(),
                 'asset' => $video->getVideoAsset() ? SystemSettings::getHostUrl(). $video->getVideoAsset() : null,
                 'posterAsset' => $video->getPosterAsset() ? (new ImageResource($video->getPosterAsset()))->toArray() : null,
+                'id' => $video->getData()['id'],
             ]
         ];
-                    }
+}
 ?>
