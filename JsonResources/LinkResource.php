@@ -15,6 +15,13 @@ class LinkResource extends Resource
             return null;
         }
 
+        if ($link['internal'] === true) {
+            $document = Document::getByPath($link['path']);
+            if ($document !== null) {
+                $link['path'] = $document->getFullPath();
+            }
+        }
+
         return [
             'internalType' => $link['internalType'],
             'linktype' => $link['linktype'],
