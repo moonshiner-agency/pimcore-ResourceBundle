@@ -25,15 +25,13 @@
 if (!$this->editmode) {
     $relations = $this->relations('objects');
 
+    $shortClassName = '';
     $this->slots()->components[] = [
-        'type' => 'relatable',
-        'data' => array_map(function ($item) {
+        'data' => array_map(function ($item) use (&$shortClassName) {
             $shortClassName = (new \ReflectionClass($item))->getShortName();
             $resourceClassName = '\AppBundle\JsonResources\\' . $shortClassName;
             if (class_exists($resourceClassName)) {
-                $data = array_merge( (new $resourceClassName($item))->toArray(), [
-                    'type' => $shortClassName
-                ] );
+                $data = (new $resourceClassName($item))->toArray();
             } else {
                 $data = [];
                 foreach ($item->getClass()->getFieldDefinitions() as $fieldDefinition) {
@@ -42,7 +40,8 @@ if (!$this->editmode) {
             }
 
             return $data;
-        }, $relations->getElements())
+        }, $relations->getElements()),
+        'type' => 'Cms' . $shortClassName . 'List'
     ];
 } else {
     ?>
