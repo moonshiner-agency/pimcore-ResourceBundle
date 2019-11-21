@@ -44,6 +44,11 @@ class SubmissionEvent extends Event
     private $redirectUri = null;
 
     /**
+     * @var array
+     */
+    private $errors = [];
+
+    /**
      * @param Request       $request
      * @param array         $formConfiguration
      * @param FormInterface $form
@@ -131,5 +136,18 @@ class SubmissionEvent extends Event
     public function getFileNames()
     {
         return $this->fileNames;
+    }
+
+    public function addError(string $name)
+    {
+        $this->errors[] = $name;
+    }
+
+    /**
+     * @return array
+     */
+    public function getErrors()
+    {
+        return $this->errors;
     }
 }

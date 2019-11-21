@@ -147,6 +147,13 @@ class RequestListener implements EventSubscriberInterface
             // not using the standard FormBuilderEvents::FORM_SUBMIT_SUCCESS - to prevent maillistener from reacting to the event
             $this->eventDispatcher->dispatch('form_builder.submitted.success', $submissionEvent);
 
+            $eventErrors = $submissionEvent->getErrors();
+            if (!empty($eventErrors)) {
+                $this->handleAjaxErrorResponse($event, $form, $eventErrors);
+
+                return;
+            }
+
             if ($request->isXmlHttpRequest()) {
                 $this->handleAjaxSuccessResponse($event, $submissionEvent, $formId);
             } else {
@@ -155,7 +162,7 @@ class RequestListener implements EventSubscriberInterface
         } else {
             //only ajax forms want some feedback.
             if ($request->isXmlHttpRequest()) {
-                $this->handleAjaxErrorResponse($event, $form);
+                $this->handleAjaxErrorResponse($event, $form, $this->getErrors($form));
             }
         }
     }
@@ -236,11 +243,11 @@ class RequestListener implements EventSubscriberInterface
      * @param GetResponseEvent $event
      * @param FormInterface    $form
      */
-    protected function handleAjaxErrorResponse(GetResponseEvent $event, FormInterface $form)
+    protected function handleAjaxErrorResponse(GetResponseEvent $event, FormInterface $form, $errors)
     {
         $response = new JsonResponse([
             'success' => false,
-            'validation_errors' => $this->getErrors($form),
+            'validation_errors' => $errors,
         ]);
 
         $event->setResponse($response);
