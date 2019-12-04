@@ -35,17 +35,10 @@ use Moonshiner\BrigthenBundle\JsonResources\ImageResource;
          ];
      }
 
-     if ($block->getCount() <= 1) {
-         $this->slots()->components[] = [
-             'type' => 'CmsQuote',
-             'data' => ($data[0] ? $data[0] : $data)
-         ];
-     } else {
-         $this->slots()->components[] = [
-             'type' => 'CmsQuoteList',
-             'items' => $data
-         ];
-     }
+     $this->slots()->components[] = [
+        'type' => 'CmsQuoteList',
+        'items' => $data
+    ];
  } else { ?>
     <section>
         <div class="cms-component-type">Testimonial</div>
