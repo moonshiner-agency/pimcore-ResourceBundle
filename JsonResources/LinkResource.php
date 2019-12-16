@@ -4,6 +4,8 @@ namespace Moonshiner\BrigthenBundle\JsonResources;
 
 use Moonshiner\BrigthenBundle\Services\Navigation;
 use Moonshiner\BrigthenBundle\Services\Resource;
+use Moonshiner\BrigthenBundle\Services\Service\SystemSettings;
+use Pimcore\Model\Asset;
 use Pimcore\Model\Document;
 
 class LinkResource extends Resource
@@ -11,6 +13,7 @@ class LinkResource extends Resource
     public function toArray()
     {
         $link = $this->resource->getData();
+        $host = SystemSettings::getHostUrl();
 
         if ($link['internal'] === null && $link['text'] === null) {
             return null;
@@ -20,6 +23,11 @@ class LinkResource extends Resource
             $document = Document::getByPath($link['path']);
             if ($document !== null) {
                 $link['path'] = $document->getFullPath();
+            }
+
+            if ($link['internalType'] === 'asset' && intval($link['internalId']) > 0) {
+                $asset = Asset::getById($link['internalId']);
+                $link['path'] = $host . $asset->getFullPath();
             }
         }
 
