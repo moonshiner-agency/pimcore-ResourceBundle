@@ -46,6 +46,8 @@ use Moonshiner\BrigthenBundle\JsonResources\ImageResource;
 
     $this->slots()->components[] = [
         'type' => 'CmsSlider',
+        'markers' => $image->getMarker(),
+        'hotspots' => $image->getHotSpots(),
         'items' => $items
     ];
 } ?>
