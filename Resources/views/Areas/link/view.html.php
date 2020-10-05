@@ -25,7 +25,7 @@ use Moonshiner\BrigthenBundle\JsonResources\LinkResource;
     <section>
         <div class="cms-component-type">Link</div>
         <div class="row">
-            <div class="col-md-6">
+            <div class="col-md-20">
                 <div class="mb-20">
                     <label class="text-info">Link:</label><br />
                     <?= $this->link('link', ['class' => 'btn-info btn-link']) ?>

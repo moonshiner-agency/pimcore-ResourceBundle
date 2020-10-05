@@ -26,7 +26,7 @@ use Moonshiner\BrigthenBundle\Services\Service\SystemSettings;
     <section>
         <div class="cms-component-type">Video</div>
         <div class="row">
-            <div class="col-md-6">
+            <div class="col-md-20">
                 <div class="mb-20">
                     <label class="text-info">Video:</label><br />
                     <?= $this->video('video', [

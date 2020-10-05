@@ -42,6 +42,10 @@ if (!$this->editmode) {
                     'thumbnail' => 'content'
                 ]); ?>
             </div>
+            <div class="mb-20">
+                <label>Use original size:</label>
+                <?= $this->checkbox('isOriginal'); ?>
+            </div>
         </div>
     </section>
 <?php

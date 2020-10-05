@@ -25,7 +25,7 @@ use Moonshiner\BrigthenBundle\JsonResources\LinkResource;
 
 <?php if ($this->editmode) {
     ?>
-    <section class="col-md-8 mb-20">
+    <section class="col-md-20 mb-20">
         <div class="cms-component-type">Hero</div>
         <div> <label class="text-info">Image:</label><br /><?= $this->image('image') ?></div>
         <hr>

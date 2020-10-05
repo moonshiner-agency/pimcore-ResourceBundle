@@ -45,7 +45,7 @@ use Moonshiner\BrigthenBundle\JsonResources\ImageResource;
         <div class="row">
         <div class="mb-20">
             <?php while ($block->loop()) { ?>
-                <div class="col-md-8">
+                <div class="col-md-20">
                     <div class="mb-20">
                         <label class="text-info">Image:</label><br />
                         <?= $this->image('image'); ?>

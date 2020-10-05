@@ -74,7 +74,7 @@ if (!$this->editmode) {
     <section>
         <div class="cms-component-type">Filtered data folder</div>
         <div class="row">
-            <div class="col-md-6">
+            <div class="col-md-20">
                 <div class="mb-20">
                     <label>Folder:</label><br />
                     <?= $this->relation('object', [

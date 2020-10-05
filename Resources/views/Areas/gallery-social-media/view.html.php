@@ -31,7 +31,7 @@ use Moonshiner\BrigthenBundle\JsonResources\ImageResource;
         <div class="cms-component-type">Social Media Gallery</div>
         <div class="row">
             <?php while ($block->loop()) { ?>
-                <div class="col-md-8 mb-20">
+                <div class="col-md-20 mb-20">
                     <div>
                         <label class="text-info">Image:</label><br />
                         <div>
@@ -59,15 +59,15 @@ use Moonshiner\BrigthenBundle\JsonResources\ImageResource;
     </section>
 <?php
 } else {
-    $data = [];
-    while ($block->loop()) {
-        $image = $this->image('image');
-        $twitter = $this->link('link_twitter');
-        $facebook = $this->link('link_facebook');
-        $instagram = $this->link('link_instagram');
+        $data = [];
+        while ($block->loop()) {
+            $image = $this->image('image');
+            $twitter = $this->link('link_twitter');
+            $facebook = $this->link('link_facebook');
+            $instagram = $this->link('link_instagram');
 
-        if($this->image('image')->getImage()) {
-            $data[] = [
+            if ($this->image('image')->getImage()) {
+                $data[] = [
                 'urls' => [
                     'twitter' => $twitter->isEmpty() ? null : $twitter->getHref(),
                     'facebook' => $facebook->isEmpty() ? null : $facebook->getHref(),
@@ -75,11 +75,11 @@ use Moonshiner\BrigthenBundle\JsonResources\ImageResource;
                 ],
                 'image' => $this->image('image')->getImage() ? (new ImageResource($this->image('image')->getImage()))->toArray() : null
             ];
+            }
         }
-    }
 
-    $this->slots()->components[] = [
+        $this->slots()->components[] = [
         'type' => 'CmsGallerySocialMedia',
         'items' => $data
     ];
-} ?>
+    } ?>

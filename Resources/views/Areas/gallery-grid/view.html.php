@@ -22,7 +22,7 @@ use Moonshiner\BrigthenBundle\JsonResources\ImageResource;
 use Moonshiner\BrigthenBundle\JsonResources\LinkResource;
 
 if ($this->editmode) { ?>
-    <section class="col-md-8 mb-20">
+    <section class="col-md-20 mb-20">
         <div class="cms-component-type">Gallery grid</div>
 
         <div class="mb-20">

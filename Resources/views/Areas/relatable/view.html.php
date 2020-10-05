@@ -49,7 +49,7 @@ if (!$this->editmode) {
     <section>
         <div class="cms-component-type">Data Objects</div>
         <div class="row">
-            <div class="col-md-6">
+            <div class="col-md-20">
                 <?= $this->relations('objects', [
                     'types' => ['object'],
                     'subtypes' => [
