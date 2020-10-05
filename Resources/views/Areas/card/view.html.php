@@ -29,7 +29,7 @@ use Moonshiner\BrigthenBundle\Services\Resource;
 
 <?php if ($this->editmode) {
     ?>
-    <section class="col-md-8 mb-20">
+    <section class="col-md-20 mb-20">
         <div class="cms-component-type">Card</div>
 
             <?php if ($block->getCount() > 1) {
