@@ -40,6 +40,13 @@ use Moonshiner\BrigthenBundle\Services\Service\SystemSettings;
     <?php
 } else {
                         $video = $this->video('video');
+
+                        if(strpos($video->getData()['id'], 'https://www.youtube.com/watch?v=') !== false) {
+                            $video->getData()['id'] = str_replace('https://www.youtube.com/watch?v=', '', $video->getData()['id']);
+                        } else if (strpos($video->getData()['id'], 'https://youtu.be/') !== false) {
+                            $video->getData()['id'] = str_replace('https://youtu.be/', '', $video->getData()['id']);
+                        }
+
                         $this->slots()->components[] = [
             'type' => 'CmsVideo',
             'video' => [
