@@ -39,17 +39,28 @@ use Moonshiner\BrigthenBundle\Services\Service\SystemSettings;
     </section>
     <?php
 } else {
-                        $video = $this->video('video');
-                        $this->slots()->components[] = [
-            'type' => 'CmsVideo',
-            'video' => [
-                'type' => $video->getVideoType(),
-                'title' => $video->getTitle(),
-                'description' => $video->getDescription(),
-                'asset' => $video->getVideoAsset() ? SystemSettings::getHostUrl(). $video->getVideoAsset() : null,
-                'posterAsset' => $video->getPosterAsset() ? (new ImageResource($video->getPosterAsset()))->toArray() : null,
-                'id' => $video->getData()['id'],
-            ]
-        ];
-                    }
+    $video = $this->video('video');
+
+    $videoId = $video->getData()['id'];
+    if ($videoId !== null) {
+        $videoId = str_replace([
+            'https://www.youtube.com/watch?v=',
+            'http://www.youtube.com/watch?v=',
+            'https://youtu.be/',
+            'http://youtu.be/',
+        ], '', $videoId);
+    }
+
+    $this->slots()->components[] = [
+        'type' => 'CmsVideo',
+        'video' => [
+            'type' => $video->getVideoType(),
+            'title' => $video->getTitle(),
+            'description' => $video->getDescription(),
+            'asset' => $video->getVideoAsset() ? SystemSettings::getHostUrl(). $video->getVideoAsset() : null,
+            'posterAsset' => $video->getPosterAsset() ? (new ImageResource($video->getPosterAsset()))->toArray() : null,
+            'id' => $videoId,
+        ]
+    ];
+}
 ?>
