@@ -39,24 +39,28 @@ use Moonshiner\BrigthenBundle\Services\Service\SystemSettings;
     </section>
     <?php
 } else {
-                        $video = $this->video('video');
+    $video = $this->video('video');
 
-                        if(strpos($video->getData()['id'], 'https://www.youtube.com/watch?v=') !== false) {
-                            $video->getData()['id'] = str_replace('https://www.youtube.com/watch?v=', '', $video->getData()['id']);
-                        } else if (strpos($video->getData()['id'], 'https://youtu.be/') !== false) {
-                            $video->getData()['id'] = str_replace('https://youtu.be/', '', $video->getData()['id']);
-                        }
+    $videoId = $video->getData()['id'];
+    if ($videoId !== null) {
+        $videoId = str_replace([
+            'https://www.youtube.com/watch?v=',
+            'http://www.youtube.com/watch?v=',
+            'https://youtu.be/',
+            'http://youtu.be/',
+        ], '', $videoId);
+    }
 
-                        $this->slots()->components[] = [
-            'type' => 'CmsVideo',
-            'video' => [
-                'type' => $video->getVideoType(),
-                'title' => $video->getTitle(),
-                'description' => $video->getDescription(),
-                'asset' => $video->getVideoAsset() ? SystemSettings::getHostUrl(). $video->getVideoAsset() : null,
-                'posterAsset' => $video->getPosterAsset() ? (new ImageResource($video->getPosterAsset()))->toArray() : null,
-                'id' => $video->getData()['id'],
-            ]
-        ];
-                    }
+    $this->slots()->components[] = [
+        'type' => 'CmsVideo',
+        'video' => [
+            'type' => $video->getVideoType(),
+            'title' => $video->getTitle(),
+            'description' => $video->getDescription(),
+            'asset' => $video->getVideoAsset() ? SystemSettings::getHostUrl(). $video->getVideoAsset() : null,
+            'posterAsset' => $video->getPosterAsset() ? (new ImageResource($video->getPosterAsset()))->toArray() : null,
+            'id' => $videoId,
+        ]
+    ];
+}
 ?>
